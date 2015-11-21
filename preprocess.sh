@@ -1,0 +1,89 @@
+#! /bin/bash
+
+# preprocess script to allow gitignore by line
+# Franklin Chou (franklin.chou@yahoo.com)
+# 20 Nov. 2015
+
+PREPROCESS_PATH='./preprocess'
+
+FILE_EXT='ahk'
+
+#------------------------------------------------------------------------------
+# Extensible token
+# Token can be adjusted based on the language; AHK uses ';'
+# @TODO: Recognize source code language and change token
+
+TOKEN='; '
+
+#------------------------------------------------------------------------------
+
+COMMIT_IGNORE_BEGIN=$TOKEN'no-commit'
+COMMIT_IGNORE_END=$TOKEN'no-commit-end'
+
+function search {
+    if [ "$(ls -A $PREPROCESS_PATH)" ]; then
+        n=0
+        spacer='   '
+        for file in $PREPROCESS_PATH/*; do
+            if [ "${file##*.}" = "$FILE_EXT" ]; then
+                n=$(( n+1 ))
+
+                local file_lines_ignored=$(process $file)
+                printf "Ignored %s%s lines in %s\n"\
+                    $file_lines_ignored\
+                    "${spacer:${#file_lines_ignored}}"\
+                    $file
+
+            fi
+        done
+        echo 
+        echo "Process complete. $n file(s) processed."
+    else
+        echo "No files to process."
+        return
+    fi    
+}
+
+# @param string containing name of file to process
+function process {
+
+    local target=`basename "${1}"`
+    install -D /dev/null "$target"    
+
+    # logic shamelessly stolen from cppcoder
+    # see http://stackoverflow.com/a/10929511/778694
+
+    local ignore_flag=0
+    local total_lines_ignored=0
+    local lines_ignored=0
+    while IFS='' read -r line || [[ -n "$line" ]]; do
+        if [[ $ignore_flag -eq 1 && "$line" != "$COMMIT_IGNORE_END" ]]; then
+            lines_ignored=$(( lines_ignored+1 ))
+            continue
+        elif [ "$line" = "$COMMIT_IGNORE_END" ]; then
+            ignore_flag=0
+            total_lines_ignored=$(( total_lines_ignored+lines_ignored ))
+            echo $TOKEN"$lines_ignored lines omitted" >> "$target"
+            lines_ignored=0
+            continue
+        fi
+
+        if [ "$line" = "$COMMIT_IGNORE_BEGIN" ]; then
+            ignore_flag=1
+            lines_ignored=$(( lines_ignored+1 ))
+            continue
+        fi
+
+        echo "$line" >> "$target"
+
+    done < "$1"
+
+    echo "$total_lines_ignored"
+    
+    return
+}
+
+#------------------------------------------------------------------------------
+# EXECUTE HERE 
+#------------------------------------------------------------------------------
+search
