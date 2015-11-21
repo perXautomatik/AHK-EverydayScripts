@@ -8,7 +8,13 @@ My AHK config file points to some personal data on my machine. I don't want thes
 To use the preprocessor, issue: `./preprocess.sh`
 
 Defined tag:
-
-`; no-commit`       Start ignoring
-
-`; no-commit-end`   Stop ignoring
+<table>
+  <tr>
+    <td>`; no-commit`</td>
+    <td>Start ignoring</td>
+  </tr>
+  <tr>
+    <td>`; no-commit-end`</td>
+    <td>Stop ignoring</td>
+  </tr>
+</table>
