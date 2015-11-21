@@ -1,8 +1,27 @@
 #! /bin/bash
 
-# preprocess script to allow gitignore by line
+# preprocess script to allow gitignore by line in ahk scripts
 # Franklin Chou (franklin.chou@yahoo.com)
 # 20 Nov. 2015
+
+# usage:
+# set up a directory structure as follows:
+
+# project/
+# --.gitignore
+# --preprocess.sh
+# --preprocess/
+
+# the subdirectory, preprocess, will contain original unmodified files
+
+# run the preprocess script which will examine the preprocess directory
+# looking for files with the specified extension and replace lines surrounded
+# by the tags:
+# ; no-commit
+# ; no-commit-end
+
+# processed source code is commented to indicate number of lines omitted
+# finally, processed source code is moved to the parent project directory
 
 PREPROCESS_PATH='./preprocess'
 
