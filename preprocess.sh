@@ -50,12 +50,12 @@ function process {
     local target=`basename "${1}"`
     install -D /dev/null "$target"    
 
-    # logic shamelessly stolen from cppcoder
-    # see http://stackoverflow.com/a/10929511/778694
-
     local ignore_flag=0
     local total_lines_ignored=0
     local lines_ignored=0
+
+    # logic shamelessly stolen from cppcoder
+    # see http://stackoverflow.com/a/10929511/778694
     while IFS='' read -r line || [[ -n "$line" ]]; do
         if [[ $ignore_flag -eq 1 && "$line" != "$COMMIT_IGNORE_END" ]]; then
             lines_ignored=$(( lines_ignored+1 ))
