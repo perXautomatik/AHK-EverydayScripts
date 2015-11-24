@@ -4,6 +4,8 @@
 ; 20 Nov. 2015
 
 ;------------------------------------------------------------------------------
+; GLOSSARY OF COMMONLY USED KEY MODIFIERS
+;
 ; # Windows key
 ; ! Alt key
 ; ^ Control key
@@ -19,8 +21,12 @@ PrintScreen::AppsKey
 ; Print screen reassigned to Windows Key + PrintScreen
 #PrintScreen::PrintScreen
 
-; Right shift and S, insert section symbol
+;------------------------------------------------------------------------------
+; COMMONLY USED SYMBOL KEYS
+
+>+P::send ¶
 >+S::send §
+;------------------------------------------------------------------------------
 
 #IfWinActive,, Microsoft Word
   PgUp::Home
@@ -29,7 +35,10 @@ PrintScreen::AppsKey
   <!Down:: Send {PgDn}
 #IfWinActive
 
-; 3 lines omitted
+; no-commit
+FireFox := "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
+Word	:= "C:\Program Files\Microsoft Office\Office15\WINWORD.EXE"
+; no-commit-end
 
 #^R::Reload
 #B::Run, "FireFox"
