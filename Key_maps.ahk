@@ -35,10 +35,7 @@ PrintScreen::AppsKey
   <!Down:: Send {PgDn}
 #IfWinActive
 
-; no-commit
-FireFox := "C:\Program Files (x86)\Mozilla Firefox\firefox.exe"
-Word	:= "C:\Program Files\Microsoft Office\Office15\WINWORD.EXE"
-; no-commit-end
+; 3 lines omitted
 
 #^R::Reload
 #B::Run, "FireFox"
