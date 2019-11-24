@@ -1,10 +1,3 @@
-;#	Win (Windows logo key
-;!	Alt
-;^	Control
-;+	Shift
-;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
-;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
-;>	Use the right key of the pair.
 
 ^!n::
 IfWinExist Untitled - Notepad
@@ -13,10 +6,10 @@ else
 	Run Notepad
 return
 
-;old method
+
 !g::
 if (dostuff != off)
-{ 
+{ then
 SetTimer, dostuff, 10
 return
 }
@@ -29,10 +22,6 @@ dostuff:
 ;do stuff
 send, click, right, down
 Return
-;new method
-^g::
-Send, {Rbutton}
-
 
 #PgUp::Send {Volume_Up 1}
 #PgDn::Send {Volume_Down 1}
