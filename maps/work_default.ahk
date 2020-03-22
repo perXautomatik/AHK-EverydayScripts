@@ -4,5 +4,13 @@
 ; 22 Mar. 2020
 ; Tested to work on Lenovo X1 Yoga, Gen. 4 
 
+#SingleInstance Force
+#Persistent 
+
 CapsLock::Ctrl
 LCtrl::CapsLock
+
+; WORD ------------------------------------------------------------------------
+#IfWinActive ahk_class OpusApp
+  PrintScreen::AppsKey
+#IfWinActive
