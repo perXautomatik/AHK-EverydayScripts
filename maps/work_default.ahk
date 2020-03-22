@@ -13,4 +13,3 @@ LCtrl::CapsLock
 ; WORD ------------------------------------------------------------------------
 #IfWinActive ahk_class OpusApp
   PrintScreen::AppsKey
-#IfWinActive
