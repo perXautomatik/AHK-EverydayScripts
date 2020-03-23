@@ -8,7 +8,7 @@
 #Persistent 
 
 CapsLock::Ctrl
-LCtrl::CapsLock
+; LCtrl::CapsLock
 
 ; WORD ------------------------------------------------------------------------
 #IfWinActive ahk_class OpusApp
