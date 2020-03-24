@@ -11,7 +11,7 @@ GLOBAL_DEBUG_MODE := 0
 Return
 
 CapsLock::Ctrl
-LCtrl::return
+LCtrl::Return
 ;LCtrl::CapsLock
 
 
