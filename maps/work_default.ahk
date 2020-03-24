@@ -64,7 +64,7 @@ Return
       WinMove, 100, 100
       MouseMove, 100, 280
       Send {RButton}
-      Sleep, 100 ; need to sleep to allow the submenu to come up
+      Sleep, 100 ; need to sleep to give submenu time to come up
       MouseMove, 170, 300 + drop_down
       Send {LButton}
     }
