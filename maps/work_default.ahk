@@ -51,6 +51,8 @@ Return
   ;MsgBox %timekeeper_app%
   If(timekeeper_app > 0) {
     WinActivate, ahk_id %timekeeper_app%
+  } Else {
+    Run, DTE.exe, C:\Program Files (x86)\DTEAxiom
   }
 Return
 
@@ -66,7 +68,7 @@ Return
       WinMove, 100, 100
       MouseMove, 100, 280
       Send {RButton}
-      Sleep, 100 ; need to sleep to allow submenu time to come up
+      Sleep, 10 ; need to sleep to allow submenu time to come up
       MouseMove, 170, 300 + drop_down
       Send {LButton}
     }
