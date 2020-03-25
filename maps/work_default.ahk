@@ -51,6 +51,8 @@ Return
   ;MsgBox %timekeeper_app%
   If(timekeeper_app > 0) {
     WinActivate, ahk_id %timekeeper_app%
+  } Else {
+    Run, DTE.exe, C:\Program Files (x86)\DTEAxiom
   }
 Return
 
@@ -58,13 +60,15 @@ Return
 #IfWinActive ahk_class WindowsForms10.Window.8.app.0.262fb3d
   >+s::
     WinGetActiveTitle, active_title
-    match_result := RegExMatch(active_title, "^Entries for") 
+    match_result := RegExMatch(active_title, "^Entries for")
+    ; each item in the dropdown is approximately 25 pixels
+    ; so item 4 (Start Timer) is 100 pixels down from the context menu
     drop_down := 100
     If(match_result > 0) {
       WinMove, 100, 100
       MouseMove, 100, 280
       Send {RButton}
-      Sleep, 100 ; need to sleep to give submenu time to come up
+      Sleep, 10 ; need to sleep to allow submenu time to come up
       MouseMove, 170, 300 + drop_down
       Send {LButton}
     }
