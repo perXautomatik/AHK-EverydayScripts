@@ -2,7 +2,6 @@
 ; AHK Version v.1.1.30.01
 ; Franklin Chou (franklin.chou@nelsonmullins.com)
 ; 22 Mar. 2020
-; Tested to work on Lenovo X1 Yoga, Gen. 4 
 
 #SingleInstance Force
 #Persistent 
@@ -11,7 +10,7 @@ GLOBAL_DEBUG_MODE := 0
 Return
 
 CapsLock::Ctrl
-LCtrl::Return
+LCtrl::return
 ;LCtrl::CapsLock
 
 
@@ -31,15 +30,15 @@ f12::
 Return
 
 #'::
-  If(GLOBAL_DEBUG_MODE > 0) {
-    WinGet windows, List
-    Loop %windows% {
-      id := windows%A_Index%
-      WinGetTitle wt, ahk_id %id%
-      r .= wt . "`n"
-    }
-    MsgBox %r%
+If(GLOBAL_DEBUG_MODE > 0) {
+  WinGet windows, List
+  Loop %windows% {
+    id := windows%A_Index%
+    WinGetTitle wt, ahk_id %id%
+    r .= wt . "`n"
   }
+  MsgBox %r%
+}
 Return
 
 
@@ -59,12 +58,14 @@ Return
   >+s::
     WinGetActiveTitle, active_title
     match_result := RegExMatch(active_title, "^Entries for") 
-    drop_down := 100
+    ; each item in the dropdown is approximately 25 pixels
+    ; so item 4 (Start Timer) is 100 pixels down from the context menu
+    drop_down := 100 
     If(match_result > 0) {
       WinMove, 100, 100
       MouseMove, 100, 280
       Send {RButton}
-      Sleep, 100 ; need to sleep to give submenu time to come up
+      Sleep, 90 ; need to sleep to allow the submenu to come up
       MouseMove, 170, 300 + drop_down
       Send {LButton}
     }
