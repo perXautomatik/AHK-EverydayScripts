@@ -1,3 +1,10 @@
+;#	Win (Windows logo key
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
 
 ^!n::
 IfWinExist Untitled - Notepad

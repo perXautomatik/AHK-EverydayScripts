@@ -33,8 +33,6 @@ Custom_Edit()
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
-
-
 ^!n::
 IfWinExist Untitled - Notepad
 	WinActivate
@@ -145,5 +143,3 @@ else
   Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
 }
 return
-
-
