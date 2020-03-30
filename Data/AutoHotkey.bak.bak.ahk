@@ -6,10 +6,10 @@ else
 	Run Notepad
 return
 
-
+;old method
 !g::
 if (dostuff != off)
-{ then
+{ 
 SetTimer, dostuff, 10
 return
 }
@@ -22,6 +22,10 @@ dostuff:
 ;do stuff
 send, click, right, down
 Return
+;new method
+^g::
+Send, {Rbutton}
+
 
 #PgUp::Send {Volume_Up 1}
 #PgDn::Send {Volume_Down 1}
