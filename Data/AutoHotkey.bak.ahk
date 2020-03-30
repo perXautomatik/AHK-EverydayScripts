@@ -1,30 +1,3 @@
-OnMessage(0x111, "WM_COMMAND")
-
-WM_COMMAND(wParam)
-{
-    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
-         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
-    {
-        Custom_Edit()
-        return true
-    }
-}
-
-Custom_Edit()
-{
-    static TITLE := "AhkPad - " A_ScriptFullPath
-    if !WinExist(TITLE)
-    {
-        Run  "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
-        WinWait ahk_pid %pid%,, 2
-        if ErrorLevel
-            return
-        WinSetTitle %TITLE%
-    }
-    WinActivate
-}
-
-;^-- auto-execute section "toprow"
 ;#	Win (Windows logo key
 ;!	Alt
 ;^	Control
@@ -124,12 +97,13 @@ while not(GetKeyState("LButton"))
 		SendInput {Click}
 		Sleep, 1000
 	}
+
 }           
 
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
 
-<#t::
+LWin & T::
 if WinActive("ahk_class CabinetWClass") 
 or WinActive("ahk_class ExploreWClass")
 {
@@ -139,7 +113,6 @@ or WinActive("ahk_class ExploreWClass")
 }
 else
 {
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+  run, cmd, C:\
 }
 return
