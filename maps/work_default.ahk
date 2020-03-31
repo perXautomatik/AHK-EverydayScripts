@@ -1,5 +1,5 @@
 ; Autohotkey configuration file
-; AHK Version v.1.1.30.01
+; AHK Version v.1.1.32.00
 ; Franklin Chou (franklin.chou@nelsonmullins.com)
 ; 22 Mar. 2020
 ; Tested to work on Lenovo X1 Yoga, Gen. 4 
@@ -7,7 +7,7 @@
 #SingleInstance Force
 #Persistent 
 
-GLOBAL_DEBUG_MODE := 0
+GLOBAL_DEBUG_MODE := 1
 Return
 
 CapsLock::Ctrl
@@ -19,8 +19,9 @@ LCtrl::Return
 
 #c::
   If(GLOBAL_DEBUG_MODE > 0) {
-    WinGetTitle, title, A
-    MsgBox %GLOBAL_DEBUG_MODE% ;%title%    
+    ; WinGetTitle, title, A
+    WinGetClass, title, A
+    MsgBox %title%    
   }
 Return
 
@@ -75,11 +76,7 @@ Return
 Return
 
 
-; WORD ------------------------------------------------------------------------
-#IfWinActive ahk_class OpusApp
-   PrintScreen::AppsKey
+; WORD/OUTLOOK ----------------------------------------------------------------
+#If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
+  PrintScreen::AppsKey
 Return
-
-
-; SYMBOL KEYS -----------------------------------------------------------------
->+s::send §
