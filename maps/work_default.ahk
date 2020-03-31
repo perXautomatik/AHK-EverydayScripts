@@ -80,3 +80,14 @@ Return
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
   PrintScreen::AppsKey
 Return
+
+
+; WORD ONLY -------------------------------------------------------------------
+#If WinActive("ahk_class OpusApp")
+  >+M::  ; Cycle through types of markup
+    Send !r
+    Sleep, 10
+    Send td
+    Send {Down}
+    Send {Enter}
+Return
