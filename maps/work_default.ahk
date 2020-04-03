@@ -33,13 +33,14 @@ Return
 
 #'::
   If(GLOBAL_DEBUG_MODE > 0) {
-    WinGet windows, List
+    WinGet, windows, List
     Loop %windows% {
       id := windows%A_Index%
       WinGetTitle wt, ahk_id %id%
       r .= wt . "`n"
     }
     MsgBox %r%
+    r := ""
   }
 Return
 
@@ -77,17 +78,28 @@ Return
 
 
 ; WORD/OUTLOOK ----------------------------------------------------------------
+
+; Let the print screen key open the application options key (for spell check)
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
   PrintScreen::AppsKey
 Return
 
 
 ; WORD ONLY -------------------------------------------------------------------
+
+; Cycle through types of markup
 #If WinActive("ahk_class OpusApp")
-  >+M::  ; Cycle through types of markup
+  >+m::
     Send !r
     Sleep, 10
     Send td
     Send {Down}
     Send {Enter}
+Return
+
+; This ridiculous keymapping is thanks to Lenovo keyboard manager
+; which maps F12 to some bloatware keyboard manager utility
+#If WinActive("ahk_class OpusApp")
+  F12::
+    Send {F12}
 Return
