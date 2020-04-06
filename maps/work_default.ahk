@@ -77,11 +77,18 @@ Return
 Return
 
 
-; WORD/OUTLOOK ----------------------------------------------------------------
+; MSOFFICE --------------------------------------------------------------------
 
 ; Let the print screen key open the application options key (for spell check)
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
   PrintScreen::AppsKey
+Return
+
+; This ridiculous keymapping is thanks to Lenovo keyboard manager
+; which maps F12 to some bloatware keyboard manager utility
+#If WinActive("ahk_class OpusApp") || WinActive("ahk_class XLMAIN")
+  F12::
+    Send {F12}
 Return
 
 
@@ -95,11 +102,4 @@ Return
     Send td
     Send {Down}
     Send {Enter}
-Return
-
-; This ridiculous keymapping is thanks to Lenovo keyboard manager
-; which maps F12 to some bloatware keyboard manager utility
-#If WinActive("ahk_class OpusApp")
-  F12::
-    Send {F12}
 Return
