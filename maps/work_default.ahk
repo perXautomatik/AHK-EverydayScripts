@@ -12,14 +12,13 @@ Return
 
 CapsLock::Ctrl
 LCtrl::Return
-;LCtrl::CapsLock
+; LCtrl::CapsLock
 
 
 ; DEBUG TOOLS -----------------------------------------------------------------
 
 #c::
   If(GLOBAL_DEBUG_MODE > 0) {
-    ; WinGetTitle, title, A
     WinGetClass, title, A
     MsgBox %title%    
   }
@@ -131,4 +130,12 @@ Return
     Send td
     Send {Down}
     Send {Enter}
+Return
+
+; Bring up the tab stop modification dialogue
+#If WinActive("ahk_class OpusApp")
+  >+t::
+    Send !h
+    Send pg
+    Send !t
 Return
