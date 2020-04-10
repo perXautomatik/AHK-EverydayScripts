@@ -53,7 +53,9 @@ Return
     }
   }
 
-  index := ""  
+  index := ""
+  process_windows := ""
+  n_process_windows := ""  
 Return
 
 ; Get the window ids of all the processes under that process name
