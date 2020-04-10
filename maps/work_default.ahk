@@ -7,7 +7,7 @@
 #SingleInstance Force
 #Persistent 
 
-GLOBAL_DEBUG_MODE := 0
+GLOBAL_DEBUG_MODE := 1
 Return
 
 CapsLock::Ctrl
@@ -31,18 +31,31 @@ f12::
   }
 Return
 
-#'::
-  If(GLOBAL_DEBUG_MODE > 0) {
-    WinGet, windows, List
-    Loop %windows% {
-      id := windows%A_Index%
-      WinGetTitle wt, ahk_id %id%
-      r .= wt . "`n"
-    }
-    MsgBox %r%
-    r := ""
+
+; SYSTEM ----------------------------------------------------------------------
+
+; Current window
+; Current windows in list
+; Current list position
+
+; Access different windows of the same group
+!`::
+  ; WinGetClass, active_window, A ; get the current active window
+  ; WinGet, active_window_id, ID, A
+  WinGet, window_list, List ; get all the windows running
+  Loop %window_list% {
+    id := window_list%A_Index%
+    MsgBox %id%
   }
+  ; MsgBox %id%
+  ; MsgBox %active_window_id%
+  
 Return
+
+; switch to the next window in the group
+SwitchWindow(current_window, windows_list, list_index) {
+  Return
+}
 
 
 ; TIMEKEEPER ------------------------------------------------------------------
@@ -80,11 +93,12 @@ Return
 ; MSOFFICE --------------------------------------------------------------------
 
 ; Let the print screen key open the application options key (for spell check)
+; Word and Outlook
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
   PrintScreen::AppsKey
 Return
 
-; This ridiculous keymapping is thanks to Lenovo keyboard manager
+; This ridiculous keymapping is care of Lenovo
 ; which maps F12 to some bloatware keyboard manager utility
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class XLMAIN")
   F12::
