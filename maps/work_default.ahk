@@ -40,20 +40,26 @@ Return
   process_windows := GetWindowsOfProcess(process_name)
   
   n_process_windows := process_windows.Length()
+  ; MsgBox, %process_name% -> %n_process_windows%
+
   index := 1 ; AHK arrays are 1 indexed
 
   While(GetKeyState("Alt", "P")) {
-    If (index < n_process_windows ) {
-      index := index + 1
-    } Else {
-      index := 1
+    If (GetKeyState("``", "P")) {
+      If (index < n_process_windows) {
+        index := index + 1
+        ; MsgBox %index% of %n_process_windows%
+      } Else {
+        index := 1
+      }
+      
+      active_id := process_windows[index]
+      WinActivate, ahk_id %active_id%
     }
-    active_id := process_windows[index]
-    WinActivate, ahk_id %active_id%
-    KeyWait, Tab
   }
 
   KeyWait, Alt
+  WinActivate, ahk_id %active_id%
   index := ""  
 Return
 
@@ -63,8 +69,10 @@ GetWindowsOfProcess(process_name) {
   WinGet, window_ids, List ; get the IDs for all running windows 
   Loop %window_ids% {
     id := window_ids%A_Index%
+    WinGetTitle, title, ahk_id %id%
     WinGet, a_process_name, ProcessName, ahk_id %id%
-    If (a_process_name = process_name) {
+    ; only include windows with visible title
+    If (title && a_process_name = process_name) { 
       ids.Push(id)
     }
   }
