@@ -7,7 +7,7 @@
 #SingleInstance Force
 #Persistent 
 
-GLOBAL_DEBUG_MODE := 0
+GLOBAL_DEBUG_MODE := 1
 Return
 
 CapsLock::Ctrl
@@ -31,18 +31,48 @@ f12::
   }
 Return
 
-#'::
-  If(GLOBAL_DEBUG_MODE > 0) {
-    WinGet, windows, List
-    Loop %windows% {
-      id := windows%A_Index%
-      WinGetTitle wt, ahk_id %id%
-      r .= wt . "`n"
+
+; SYSTEM ----------------------------------------------------------------------
+
+; Access different windows of the same group with Alt + backtick
+!`::
+  WinGet, process_name, ProcessName, A ; get the active window's process name
+  process_windows := GetWindowsOfProcess(process_name)
+  
+  n_process_windows := process_windows.Length()
+  
+  index := 1 ; AHK arrays are 1 indexed
+  While(GetKeyState("Alt", "P")) {
+    If (GetKeyState("``", "P")) {
+      If (index < n_process_windows) {
+        index := index + 1
+      } Else {
+        index := 1
+      }
+      active_id := process_windows[index]
+      WinActivate, ahk_id %active_id%
     }
-    MsgBox %r%
-    r := ""
   }
+
+  KeyWait, Alt
+  index := ""  
 Return
+
+; Get the window ids of all the processes under that process name
+GetWindowsOfProcess(process_name) {
+  ids := Array()
+  WinGet, window_ids, List ; get the IDs for all running windows 
+  Loop %window_ids% {
+    id := window_ids%A_Index%
+    WinGetTitle, title, ahk_id %id%
+    WinGet, a_process_name, ProcessName, ahk_id %id%
+    ; only include windows with visible title
+    If (title && a_process_name = process_name) { 
+      ids.Push(id)
+    }
+  }
+  Return, ids
+}
 
 
 ; TIMEKEEPER ------------------------------------------------------------------
@@ -50,7 +80,6 @@ Return
 ; Shift focus to the timekeeper app
 #!e::
   timekeeper_app := WinExist("ahk_class WindowsForms10.Window.8.app.0.262fb3d")
-  ;MsgBox %timekeeper_app%
   If(timekeeper_app > 0) {
     WinActivate, ahk_id %timekeeper_app%
   } Else {
@@ -80,11 +109,12 @@ Return
 ; MSOFFICE --------------------------------------------------------------------
 
 ; Let the print screen key open the application options key (for spell check)
+; Word and Outlook
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
   PrintScreen::AppsKey
 Return
 
-; This ridiculous keymapping is thanks to Lenovo keyboard manager
+; This ridiculous keymapping is care of Lenovo
 ; which maps F12 to some bloatware keyboard manager utility
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class XLMAIN")
   F12::
