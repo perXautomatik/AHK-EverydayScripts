@@ -132,3 +132,10 @@ Return
     Send {Down}
     Send {Enter}
 Return
+
+#If WinActive("ahk_class OpusApp")
+  >+t::
+    Send !h
+    Send pg
+    Send !t
+Return
