@@ -40,13 +40,20 @@ Return
 
 ; Access different windows of the same group
 !`::
-  ; WinGetClass, active_window, A ; get the current active window
-  ; WinGet, active_window_id, ID, A
-  WinGet, window_list, List ; get all the windows running
-  Loop %window_list% {
-    id := window_list%A_Index%
-    MsgBox %id%
+  map := {}
+  
+  WinGet, window_id_list, List ; get the IDs for all the windows running
+  Loop %window_id_list% {
+    id := window_id_list%A_Index%
+    WinGetTitle, window_title, ahk_id %id%
+    WinGet, process_name, ProcessName, ahk_id %id%
+    If (window_title) {
+      map[id] := window_title
+    } 
+    MsgBox %process_name%
   }
+  id := ""
+  window_title := ""
   ; MsgBox %id%
   ; MsgBox %active_window_id%
   
