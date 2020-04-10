@@ -133,6 +133,7 @@ Return
     Send {Enter}
 Return
 
+; Bring up the tab stop modification dialogue
 #If WinActive("ahk_class OpusApp")
   >+t::
     Send !h
