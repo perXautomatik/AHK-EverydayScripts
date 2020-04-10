@@ -12,14 +12,13 @@ Return
 
 CapsLock::Ctrl
 LCtrl::Return
-;LCtrl::CapsLock
+; LCtrl::CapsLock
 
 
 ; DEBUG TOOLS -----------------------------------------------------------------
 
 #c::
   If(GLOBAL_DEBUG_MODE > 0) {
-    ; WinGetTitle, title, A
     WinGetClass, title, A
     MsgBox %title%    
   }
