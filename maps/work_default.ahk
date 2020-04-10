@@ -34,7 +34,7 @@ Return
 
 ; SYSTEM ----------------------------------------------------------------------
 
-; Access different windows of the same group
+; Access different windows of the same group with Alt + backtick
 !`::
   WinGet, process_name, ProcessName, A ; get the active window's process name
   process_windows := GetWindowsOfProcess(process_name)
