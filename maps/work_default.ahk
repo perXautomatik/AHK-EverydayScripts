@@ -40,6 +40,7 @@ Return
 
 ; Access different windows of the same group
 !`::
+
   map := {}
   
   WinGet, window_id_list, List ; get the IDs for all the windows running
@@ -48,14 +49,20 @@ Return
     WinGetTitle, window_title, ahk_id %id%
     WinGet, process_name, ProcessName, ahk_id %id%
     If (window_title) {
-      map[id] := window_title
+      ; attrs = [window_title, proces_name]
+      map[id] := process_name
     } 
-    MsgBox %process_name%
+    attrs := ""
   }
   id := ""
   window_title := ""
-  ; MsgBox %id%
-  ; MsgBox %active_window_id%
+  
+  For k, v in map {
+    ; MsgBox "%k% -> %v%"
+  }
+  ; result := ""
+
+  ; WinActivate, ahk_id 70380
   
 Return
 
