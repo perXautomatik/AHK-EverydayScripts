@@ -40,8 +40,7 @@ Return
   process_windows := GetWindowsOfProcess(process_name)
   
   n_process_windows := process_windows.Length()
-  ; MsgBox, %process_name% -> %n_process_windows%
-
+  
   index := 1 ; AHK arrays are 1 indexed
 
   While(GetKeyState("Alt", "P")) {
@@ -52,14 +51,12 @@ Return
       } Else {
         index := 1
       }
-      
       active_id := process_windows[index]
       WinActivate, ahk_id %active_id%
     }
   }
 
   KeyWait, Alt
-  WinActivate, ahk_id %active_id%
   index := ""  
 Return
 
