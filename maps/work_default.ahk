@@ -7,7 +7,7 @@
 #SingleInstance Force
 #Persistent 
 
-GLOBAL_DEBUG_MODE := 1
+GLOBAL_DEBUG_MODE := 0
 Return
 
 CapsLock::Ctrl
@@ -34,7 +34,7 @@ Return
 
 ; SYSTEM ----------------------------------------------------------------------
 
-; Access different windows of the same group with Alt + backtick
+; Access different windows of the same group
 !`::
   WinGet, process_name, ProcessName, A ; get the active window's process name
   process_windows := GetWindowsOfProcess(process_name)
@@ -54,7 +54,6 @@ Return
     }
   }
 
-  KeyWait, Alt
   index := ""  
 Return
 
