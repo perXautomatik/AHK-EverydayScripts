@@ -34,27 +34,37 @@ Return
 
 ; SYSTEM ----------------------------------------------------------------------
 
-; Current window
-; Current windows in list
-; Current list position
-
 ; Access different windows of the same group
 !`::
   WinGet, process_name, ProcessName, A ; get the active window's process name
-  matches := GetWindowsOfProcess(process_name)
-  MsgBox % matches.Length()
+  process_windows := GetWindowsOfProcess(process_name)
+  
+  n_process_windows := process_windows.Length()
+  index := 1 ; AHK arrays are 1 indexed
+
+  While(GetKeyState("Alt", "P")) {
+    If (index < n_process_windows ) {
+      index := index + 1
+    } Else {
+      index := 1
+    }
+    active_id := process_windows[index]
+    WinActivate, ahk_id %active_id%
+    KeyWait, Tab
+  }
+
+  KeyWait, Alt
+  index := ""  
 Return
 
 ; Get the window ids of all the processes under that process name
 GetWindowsOfProcess(process_name) {
   ids := Array()
-  WinGet, window_ids, List ; get the IDs for all the windows running
+  WinGet, window_ids, List ; get the IDs for all running windows 
   Loop %window_ids% {
     id := window_ids%A_Index%
     WinGet, a_process_name, ProcessName, ahk_id %id%
     If (a_process_name = process_name) {
-      ; MsgBox %a_process_name%
-      ; MsgBox %id%
       ids.Push(id)
     }
   }
