@@ -42,12 +42,10 @@ Return
   n_process_windows := process_windows.Length()
   
   index := 1 ; AHK arrays are 1 indexed
-
   While(GetKeyState("Alt", "P")) {
     If (GetKeyState("``", "P")) {
       If (index < n_process_windows) {
         index := index + 1
-        ; MsgBox %index% of %n_process_windows%
       } Else {
         index := 1
       }
@@ -82,7 +80,6 @@ GetWindowsOfProcess(process_name) {
 ; Shift focus to the timekeeper app
 #!e::
   timekeeper_app := WinExist("ahk_class WindowsForms10.Window.8.app.0.262fb3d")
-  ;MsgBox %timekeeper_app%
   If(timekeeper_app > 0) {
     WinActivate, ahk_id %timekeeper_app%
   } Else {
