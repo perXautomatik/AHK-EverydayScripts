@@ -40,35 +40,25 @@ Return
 
 ; Access different windows of the same group
 !`::
-
-  map := {}
-  
-  WinGet, window_id_list, List ; get the IDs for all the windows running
-  Loop %window_id_list% {
-    id := window_id_list%A_Index%
-    WinGetTitle, window_title, ahk_id %id%
-    WinGet, process_name, ProcessName, ahk_id %id%
-    If (window_title) {
-      ; attrs = [window_title, proces_name]
-      map[id] := process_name
-    } 
-    attrs := ""
-  }
-  id := ""
-  window_title := ""
-  
-  For k, v in map {
-    ; MsgBox "%k% -> %v%"
-  }
-  ; result := ""
-
-  ; WinActivate, ahk_id 70380
-  
+  WinGet, process_name, ProcessName, A ; get the active window's process name
+  matches := GetWindowsOfProcess(process_name)
+  MsgBox % matches.Length()
 Return
 
-; switch to the next window in the group
-SwitchWindow(current_window, windows_list, list_index) {
-  Return
+; Get the window ids of all the processes under that process name
+GetWindowsOfProcess(process_name) {
+  ids := Array()
+  WinGet, window_ids, List ; get the IDs for all the windows running
+  Loop %window_ids% {
+    id := window_ids%A_Index%
+    WinGet, a_process_name, ProcessName, ahk_id %id%
+    If (a_process_name = process_name) {
+      ; MsgBox %a_process_name%
+      ; MsgBox %id%
+      ids.Push(id)
+    }
+  }
+  Return, ids
 }
 
 
