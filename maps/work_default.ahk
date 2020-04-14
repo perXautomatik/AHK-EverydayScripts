@@ -7,7 +7,7 @@
 #SingleInstance Force
 #Persistent 
 
-GLOBAL_DEBUG_MODE := 1
+GLOBAL_DEBUG_MODE := 0
 Return
 
 CapsLock::Ctrl
