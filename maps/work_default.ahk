@@ -108,7 +108,7 @@ Return
     If(is_releaseable && RegExMatch(active_title, "^Entries for") > 0) {
       WinMove, 0, 0
       ; when figuring out how low to get the mouse to move aim for the area
-      ; of the menu ar that says "Drag a column header here..."
+      ; of the menu bar that says "Drag a column header here..."
       MouseMove, 100, 280
       DTEAppContextClick(4)
     ; match weekly view, 1 application window
