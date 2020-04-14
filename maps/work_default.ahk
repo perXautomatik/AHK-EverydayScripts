@@ -53,7 +53,6 @@ Return
       WinActivate, ahk_id %active_id%
     }
   }
-
   index := ""
   process_windows := ""
   n_process_windows := ""  
@@ -105,7 +104,6 @@ Return
     WinGetActiveTitle, active_title    
     selected := GetSelectedText()
     is_releasable := RegExMatch(selected, "Ready to be released|Timer still running")
-    MsgBox %selected%
     ; match weekly view, 1 application window
     If (is_releasable && RegExMatch(active_title, "DTE Axiom") > 0) {
       WinMove, 0, 0
