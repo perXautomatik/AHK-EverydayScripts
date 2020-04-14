@@ -101,11 +101,9 @@ Return
 ; Start the timer on the selected item in the daily view
 #IfWinActive ahk_class WindowsForms10.Window.8.app.0.262fb3d
   >+s::
-    WinGetActiveTitle, active_title
-    
+    WinGetActiveTitle, active_title    
     selected := GetSelectedText()
-    is_releasable := RegExMatch(selected, "Ready to be released")    
-
+    is_releasable := RegExMatch(selected, "Ready to be released")
     ; match monthly view; 2 application windows
     If(is_releaseable && RegExMatch(active_title, "^Entries for") > 0) {
       WinMove, 0, 0
@@ -113,6 +111,7 @@ Return
       ; of the menu ar that says "Drag a column header here..."
       MouseMove, 100, 280
       DTEAppContextClick(4)
+    ; match weekly view, 1 application window
     } Else If (is_releasable && RegExMatch(active_title, "DTE Axiom") > 0) {
       WinMove, 0, 0
       MouseMove, 100, 440
