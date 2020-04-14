@@ -1,7 +1,7 @@
 ; Autohotkey configuration file
 ; AHK Version v.1.1.32.00
 ; Franklin Chou (franklin.chou@nelsonmullins.com)
-; 22 Mar. 2020
+; 14 Apr. 2020
 ; Tested to work on Lenovo X1 Yoga, Gen. 4 
 
 #SingleInstance Force
@@ -19,7 +19,8 @@ LCtrl::Return
 
 #c::
   If(GLOBAL_DEBUG_MODE > 0) {
-    WinGetClass, title, A
+    ; WinGetClass, title, A
+    WinGetActiveTitle, title
     MsgBox %title%    
   }
 Return
@@ -74,6 +75,16 @@ GetWindowsOfProcess(process_name) {
   Return, ids
 }
 
+; utility to get selected text (if any)
+GetSelectedText() {
+  temp := ClipboardAll
+  Send ^c
+  ClipWait, 0, 1
+  selection := Clipboard
+  Clipboard := temp
+  Return, selection
+}
+
 
 ; TIMEKEEPER ------------------------------------------------------------------
 
@@ -91,19 +102,38 @@ Return
 #IfWinActive ahk_class WindowsForms10.Window.8.app.0.262fb3d
   >+s::
     WinGetActiveTitle, active_title
-    match_result := RegExMatch(active_title, "^Entries for")
-    ; each item in the dropdown is approximately 25 pixels
-    ; so item 4 (Start Timer) is 100 pixels down from the context menu
-    drop_down := 100
-    If(match_result > 0) {
-      WinMove, 100, 100
+    
+    selected := GetSelectedText()
+    is_releasable := RegExMatch(selected, "Ready to be released")    
+
+    ; match monthly view; 2 application windows
+    If(is_releaseable && RegExMatch(active_title, "^Entries for") > 0) {
+      WinMove, 0, 0
+      ; when figuring out how low to get the mouse to move aim for the area
+      ; of the menu ar that says "Drag a column header here..."
       MouseMove, 100, 280
-      Send {RButton}
-      Sleep, 10 ; need to sleep to allow submenu time to come up
-      MouseMove, 170, 300 + drop_down
-      Send {LButton}
+      DTEAppContextClick(4)
+    } Else If (is_releasable && RegExMatch(active_title, "DTE Axiom") > 0) {
+      WinMove, 0, 0
+      MouseMove, 100, 440
+      DTEAppContextClick(4)
+    } Else {
+      MsgBox Select releasable entry
+      Return
     }
+    is_releasable := ""
+    selected := ""
 Return
+
+; click the item in the DTE context menu that is `position` from the top
+DTEAppContextClick(position) {
+    ; each item in the dropdown is approximately 25 pixels
+    drop_down := 25
+    Send {RButton}
+    Sleep, 10 ; sleep to allow submenu time to come up
+    MouseMove, 170, 300 + drop_down * position
+    Send {LButton} 
+}
 
 
 ; MSOFFICE --------------------------------------------------------------------
