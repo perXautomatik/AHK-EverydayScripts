@@ -78,6 +78,7 @@ GetWindowsOfProcess(process_name) {
 ; utility to get selected text (if any)
 GetSelectedText() {
   temp := ClipboardAll
+  Clipboard := ""
   Send ^c
   ClipWait, 0, 1
   selection := Clipboard
@@ -103,19 +104,22 @@ Return
   >+s::
     WinGetActiveTitle, active_title    
     selected := GetSelectedText()
-    is_releasable := RegExMatch(selected, "Ready to be released")
-    ; match monthly view; 2 application windows
-    If(is_releaseable && RegExMatch(active_title, "^Entries for") > 0) {
+    is_releasable := RegExMatch(selected, "Ready to be released|Timer still running")
+    MsgBox %selected%
+    ; match weekly view, 1 application window
+    If (is_releasable && RegExMatch(active_title, "DTE Axiom") > 0) {
+      WinMove, 0, 0
+      MouseMove, 100, 460
+      DTEAppContextClick(4, 460)
+    ; match monthly view, 2 application windows
+    ; in this view, Ctrl + C does NOT copy the selected text
+    ; so `is_releasable` is useless
+    } Else If(RegExMatch(active_title, "^Entries for") > 0) {
       WinMove, 0, 0
       ; when figuring out how low to get the mouse to move aim for the area
       ; of the menu bar that says "Drag a column header here..."
       MouseMove, 100, 280
-      DTEAppContextClick(4)
-    ; match weekly view, 1 application window
-    } Else If (is_releasable && RegExMatch(active_title, "DTE Axiom") > 0) {
-      WinMove, 0, 0
-      MouseMove, 100, 440
-      DTEAppContextClick(4)
+      DTEAppContextClick(4, 280)
     } Else {
       MsgBox Select releasable entry
       Return
@@ -124,13 +128,14 @@ Return
     selected := ""
 Return
 
-; click the item in the DTE context menu that is `position` from the top
-DTEAppContextClick(position) {
+; click the item in the DTE context menu that is `item_position` from the top
+; with the starting position of `initial_mouse` (y-axis offset)
+DTEAppContextClick(item_position, initial_mouse) {
     ; each item in the dropdown is approximately 25 pixels
     drop_down := 25
     Send {RButton}
     Sleep, 10 ; sleep to allow submenu time to come up
-    MouseMove, 170, 300 + drop_down * position
+    MouseMove, 170, (initial_mouse + 20) + drop_down * item_position
     Send {LButton} 
 }
 
