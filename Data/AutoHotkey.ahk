@@ -15,7 +15,7 @@ Custom_Edit()
     static TITLE := "AhkPad - " A_ScriptFullPath
     if !WinExist(TITLE)
     {
-        Run  "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
+        Run  "E:\Program Files\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
         WinWait ahk_pid %pid%,, 2
         if ErrorLevel
             return
@@ -32,8 +32,6 @@ Custom_Edit()
 ;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
-
-
 
 ^!n::
 IfWinExist Untitled - Notepad
@@ -111,7 +109,7 @@ PrintScreen:: ;runs snipping tool
 }
 
 #IfWinActive ahk_class POEWindowClass
-	§::
+	ï¿½::
 	Send {enter} /exit {enter}
 return
 
@@ -122,7 +120,7 @@ while not(GetKeyState("LButton"))
 {
 	IfWinActive, MTGA
 	{
-		SendInput {Space}
+		SendInput {enter}
 		SendInput {Click}
 		Sleep, 1000
 	}
@@ -145,5 +143,3 @@ else
   Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
 }
 return
-
-
