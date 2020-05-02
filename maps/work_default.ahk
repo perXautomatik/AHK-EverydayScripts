@@ -1,7 +1,7 @@
 ; Autohotkey configuration file
 ; AHK Version v.1.1.32.00
 ; Franklin Chou (franklin.chou@nelsonmullins.com)
-; 14 Apr. 2020
+; 2 May 2020
 ; Tested to work on Lenovo X1 Yoga, Gen. 4 
 
 #SingleInstance Force
@@ -146,11 +146,31 @@ DTEAppContextClick(item_position, initial_mouse) {
   PrintScreen::AppsKey
 Return
 
+; Outlook
+
+#If WinActive("ahk_class rctrl_renwnd32")
+  ; disable Ctrl + D as delete email
+  ^d::Return 
+  
+  ; disable Ctrl + E as find 
+  $^e::Return
+
+  ; remap Ctrl + F to find
+  ^f::
+    WinGetActiveTitle, title
+    ; IN MESSAGE, Ctrl + F maps to F4
+    If (RegExMatch(title, " - Message") > 0) {
+      Send {F4}
+    } Else {
+      Send ^e
+    }
+    title := ""
+Return
+
 ; This ridiculous keymapping is care of Lenovo
 ; which maps F12 to some bloatware keyboard manager utility
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class XLMAIN")
-  F12::
-    Send {F12}
+  F12::Send {F12}
 Return
 
 
