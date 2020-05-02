@@ -4,32 +4,11 @@
 ; 2 May 2020
 ; Tested to work on Lenovo X1 Yoga, Gen. 4 
 
-#SingleInstance Force
 #Persistent 
-
-GLOBAL_DEBUG_MODE := 0
-Return
 
 CapsLock::Ctrl
 LCtrl::Return
 ; LCtrl::CapsLock
-
-
-; DEBUG TOOLS -----------------------------------------------------------------
-
-#c::
-  If(GLOBAL_DEBUG_MODE > 0) {
-    ; WinGetClass, title, A
-    WinGetActiveTitle, title
-    MsgBox %title%    
-  }
-Return
-
-f12::
-  If(GLOBAL_DEBUG_MODE > 0) {
-    Reload
-  }
-Return
 
 
 ; SYSTEM ----------------------------------------------------------------------
