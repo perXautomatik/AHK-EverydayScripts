@@ -9,6 +9,8 @@
 ; DEVELOPMENT TOOLS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+#Persistent
+
 #c::
   WinGetActiveTitle, title
   MsgBox %title%
