@@ -9,6 +9,7 @@
 CapsLock::Ctrl
 LCtrl::Return
 ; LCtrl::CapsLock
+PrintScreen::AppsKey
 
 
 ; SYSTEM ----------------------------------------------------------------------
@@ -118,12 +119,6 @@ DTEAppContextClick(item_position, initial_mouse) {
 
 
 ; MSOFFICE --------------------------------------------------------------------
-
-; Let the print screen key open the application options key (for spell check)
-; Word and Outlook
-#If WinActive("ahk_class OpusApp") || WinActive("ahk_class rctrl_renwnd32")
-  PrintScreen::AppsKey
-Return
 
 ; Outlook
 
