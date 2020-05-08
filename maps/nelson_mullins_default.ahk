@@ -141,6 +141,9 @@ DTEAppContextClick(item_position, initial_mouse) {
     title := ""
 Return
 
+#If WinActive("ahk_class XLMAIN")
+  ^m::Send +{F2}
+
 ; This ridiculous keymapping is care of Lenovo
 ; which maps F12 to some bloatware keyboard manager utility
 #If WinActive("ahk_class OpusApp") || WinActive("ahk_class XLMAIN")
