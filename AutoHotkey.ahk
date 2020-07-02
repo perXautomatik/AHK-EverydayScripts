@@ -21,7 +21,6 @@ Custom_Edit()
             return
         WinSetTitle %TITLE%
     }
-    WinActivate
 }
 
 ;^-- auto-execute section "toprow"
@@ -33,6 +32,13 @@ Custom_Edit()
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
+
+    WinActivate
+  ^TAB::
+  send {alt Down}{tab Down}
+  sleep 500
+  send {alt upp}{tab upp}
+return
 
 
 ^!n::
@@ -111,7 +117,7 @@ PrintScreen:: ;runs snipping tool
 }
 
 #IfWinActive ahk_class POEWindowClass
-	§::
+	
 	Send {enter} /exit {enter}
 return
 
@@ -145,5 +151,3 @@ else
   Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
 }
 return
-
-
