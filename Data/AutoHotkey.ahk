@@ -65,12 +65,21 @@ return
 ;new method
 
 ^g::
+{
 Send, {Rbutton}
+return
+}
 
-
-#PgUp::Send {Volume_Up 1}
-#PgDn::Send {Volume_Down 1}
-
+#PgUp::
+{
+	Send {Volume_Up 1} 
+	return
+}
+#PgDn::
+{
+	Send {Volume_Down 1} 
+	return
+}
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
 {
