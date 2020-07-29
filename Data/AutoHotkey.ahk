@@ -33,6 +33,13 @@ Custom_Edit()
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
+~|::
+{
+Send, {CtrlDown}{AltDown}{Tab}
+Send, {CtrlUp}{AltUp}
+return
+}
+
 
 #IfWinActive ahk_class vguiPopupWindow
 {
