@@ -9,9 +9,9 @@
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
-
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
+
 {
 	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
 	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
@@ -54,11 +54,23 @@ PrintScreen:: ;runs snipping tool
 }
 
 #IfWinActive ahk_class POEWindowClass
-	;::
+	
 	Send {enter} /exit {enter}
 return
 
-; #IfWinActive, MTGA ;Space:: *:: while not(GetKeyState("LButton")) { IfWinActive, MTGA { SendInput {f3} } }           
+
+#IfWinActive, MTGA
+Space::
+while not(GetKeyState("LButton"))
+{
+	IfWinActive, MTGA
+	{
+		SendInput {enter}
+		SendInput {Click}
+		Sleep, 1000
+	}
+}           
+
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
 
@@ -68,7 +80,7 @@ or WinActive("ahk_class ExploreWClass")
 {
   Send {Shift Down}{AppsKey}{Shift Up}
   Sleep 10
-  Send {enter}
+  Send w{enter}
 }
 else
 {
