@@ -1,28 +1,4 @@
-OnMessage(0x111, "WM_COMMAND")
 
-WM_COMMAND(wParam)
-{
-    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
-         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
-    {
-        Custom_Edit()
-        return true
-    }
-}
-
-Custom_Edit()
-{
-    static TITLE := "AhkPad - " A_ScriptFullPath
-    if !WinExist(TITLE)
-    {
-        Run  "E:\Program Files\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
-        WinWait ahk_pid %pid%,, 2
-        if ErrorLevel
-            return
-        WinSetTitle %TITLE%
-    }
-    WinActivate
-}
 
 ;^-- auto-execute section "toprow"
 ;#	Win (Windows logo key
@@ -33,60 +9,7 @@ Custom_Edit()
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
-~|::
-{
-Send, {CtrlDown}{AltDown}{Tab}
-Send, {CtrlUp}{AltUp}
-return
-}
 
-
-#IfWinActive ahk_class vguiPopupWindow
-{
-	1::
-	Send {LButton} 10 {enter}
-	return
-	
-	2::
-	Send {LButton} 100 {enter}
-	return
-
-	3::
-	Send {LButton} 500 {enter}
-	return
-
-	4::
-	Send {LButton} 900 {enter}
-	return
-}
-
-^!n::
-IfWinExist Untitled - Notepad
-	WinActivate
-else
-	Run Notepad
-return
-
-;old method !g:: if (dostuff != off) { SetTimer, dostuff, 10 return } else { settimer, dostuff, off return }
-;do stuff dostuff: send click, right, down Return
-;new method
-
-^g::
-{
-Send, {Rbutton}
-return
-}
-
-#PgUp::
-{
-	Send {Volume_Up 1} 
-	return
-}
-#PgDn::
-{
-	Send {Volume_Down 1} 
-	return
-}
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
 {
@@ -153,6 +76,59 @@ else
   Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
 }
 return
+~|::
+{
+Send, {CtrlDown}{AltDown}{Tab}
+Send, {CtrlUp}{AltUp}
+return
+}
 
+
+#IfWinActive ahk_class vguiPopupWindow
+{
+	1::
+	Send {LButton} 10 {enter}
+	return
+	
+	2::
+	Send {LButton} 100 {enter}
+	return
+
+	3::
+	Send {LButton} 500 {enter}
+	return
+
+	4::
+	Send {LButton} 900 {enter}
+	return
+}
+
+^!n::
+IfWinExist Untitled - Notepad
+	WinActivate
+else
+	Run Notepad
+return
+
+;old method !g:: if (dostuff != off) { SetTimer, dostuff, 10 return } else { settimer, dostuff, off return }
+;do stuff dostuff: send click, right, down Return
+;new method
+
+^g::
+{
+Send, {Rbutton}
+return
+}
+
+#PgUp::
+{
+	Send {Volume_Up 1} 
+	return
+}
+#PgDn::
+{
+	Send {Volume_Down 1} 
+	return
+}
 
 
