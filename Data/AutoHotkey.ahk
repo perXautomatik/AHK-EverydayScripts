@@ -1,146 +1,127 @@
+;#NoTrayIcon
+#SingleInstance, Force
+#Persistent
 
+;NiceBlue = BED2E8
+;Pass := IBox("Please input Outlook password", Pass, "Password")
+GenTip(A_Scriptname . " has started!")
+While ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
+{
 
-;^-- auto-execute section "toprow"
-;#	Win (Windows logo key
-;!	Alt
-;^	Control
-;+	Shift
-;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
-;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
-;>	Use the right key of the pair.
+;SetTitleMatchMode, 2
+;SetTitleMatchMode, slow
 
-PrintScreen:: ;runs snipping tool 
-;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
+UniqueID := WinExist, Security Alert ;WinExist("ahk_class Security Alert") or WinExist("ahk_class" . #32770)
+
+	GenTip(A_Scriptname . %UniqueID)
 
 {
-	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
-	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
+    WinActivate  ; Automatically uses the window found above.
+    Send, {Enter}
+	GenTip(A_Scriptname . " before!")
+
+;    return
+}
+
+;Send, {LWINDOWN}{LWINUP}
+;#ifwinwaitactive, 
+;{
+;GenTip(A_Scriptname . " before!")
+
+;WinWaitActive, Security Alert, 
+;Send,{tab}{return}
+;MouseClick, left,  150,  127 
+
+
+;GenTip(A_Scriptname . " after!")
+Sleep 1000 ; just in case  147,  101
+
+
+;}	
+		
+}
+SetTimer, Restart, 100
+
+Return
+
+Restart:
+If ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
+	Reload
+Return
+
+Critical:
+!esc::
+MsgBox, 0, Closing, %A_ScriptName% is closing, 1
+ExitApp
+Return
+
+#esc::
+reload
+Return
+
+
+IBox(Prompt, Default="", Options="") {
+	Static MyInputBoxEditCtrl
+	Global NiceBlue
+	Gui, 55: Default
+	Gui, +LabelMyInputBox +ToolWindow
+	Gui, Margin, 20, 10
+	Gui, Color, %NiceBlue%
+	Gui, Add, Text, w360, %Prompt%
+	Gui, Add, Edit, r1 wp %Options% vMyInputBoxEditCtrl
+	Gui, Add, Button, yp+40 xp gInputBoxSubmitVariables Default, OK
+	Gui, Add, Button, gDoNotInputBoxSubmitVariables yp xp300, Cancel
+	Gui, Show,, Input is needed...
+	WinWaitClose, Input is needed...
+	Return RetVar
+
+	InputBoxSubmitVariables:
+	Gui, Submit
+	RetVar := MyInputBoxEditCtrl
+	MyInputBoxEscape:
+	MyInputBoxClose:
+	DoNotInputBoxSubmitVariables:
+	Gui, Destroy
+	If !StrLen(RetVar)
+		ErrorLevel := 1
+	Return
+}	
+GenTip(Text) {
+	CenTip(Text)
+	Seconds := Ceil(StrLen(Text)*60)
+	EndTip(Seconds, 14)
+}
+CenTip(Text) {
+	If Text =
 	{
-		WinGet, State, MinMax
-		if (State = -1)
-		{	
-			WinRestore
-			Send, ^n
-		}
-		else if WinActive()
-			WinMinimize
-		else
-		{
-			WinActivate
-			Send, ^n
-		}
+		ToolTip,,,,14
+		Return
 	}
-	else if WinExist("ahk_class Microsoft-Windows-.*SnipperEditor")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-			WinRestore
-		else if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	}
-	else
-	{
-		Run, snippingtool.exe
-		if (SubStr(A_OSVersion,1,2)=10)
-		{
-			WinWait, ahk_class Microsoft-Windows-.*SnipperToolbar,,3
-			Send, ^n
-		}
-	}
-	SetTitleMatchMode, %Setting_A_TitleMatchMode%
-	return
+	CoordMode, ToolTip, Screen
+	Len := StrLen(Text)
+	If Len > 25
+		Len := Len*4.8
+	Else If Len <= 25
+		Len := Len*5.2
+	X := (A_ScreenWidth/2)-(Len/2)
+	Y := (A_ScreenHeight-20)/2
+	ToolTip, %Text%, %X%, %Y%, 14
+	Return
 }
-
-#IfWinActive ahk_class POEWindowClass
-	
-	Send {enter} /exit {enter}
-return
-
-
-#IfWinActive, MTGA
-Space::
-while not(GetKeyState("LButton"))
-{
-	IfWinActive, MTGA
-	{
-		SendInput {enter}
-		SendInput {Click}
-		Sleep, 1000
-	}
-}           
-
-
-;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
-
-<#t::
-if WinActive("ahk_class CabinetWClass") 
-or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
+EndTip(Time, Tip) {
+	global CurrentTip
+	CurrentTip := Tip
+	SetTimer, EndTip, %Time%
+	Return Tip
 }
-else
-{
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+CtrlSetText(Control, Text="", WinTitle="", OptionalEndKey="") {
+	Global Active
+	If !WinTitle
+		WinTitle = A
+	ControlSetText, %Control%, %Text%, %WinTitle%
+	If OptionalEndKey
+		Send % OptionalEndKey
+	Return Abs(ErrorLevel-1)
 }
-return
-~|::
-{
-Send, {CtrlDown}{AltDown}{Tab}
-Send, {CtrlUp}{AltUp}
-return
-}
-
-
-#IfWinActive ahk_class vguiPopupWindow
-{
-	1::
-	Send {LButton} 10 {enter}
-	return
-	
-	2::
-	Send {LButton} 100 {enter}
-	return
-
-	3::
-	Send {LButton} 500 {enter}
-	return
-
-	4::
-	Send {LButton} 900 {enter}
-	return
-}
-
-^!n::
-IfWinExist Untitled - Notepad
-	WinActivate
-else
-	Run Notepad
-return
-
-;old method !g:: if (dostuff != off) { SetTimer, dostuff, 10 return } else { settimer, dostuff, off return }
-;do stuff dostuff: send click, right, down Return
-;new method
-
-^g::
-{
-Send, {Rbutton}
-return
-}
-
-#PgUp::
-{
-	Send {Volume_Up 1} 
-	return
-}
-#PgDn::
-{
-	Send {Volume_Down 1} 
-	return
-}
-
-
+EndTip:
+ToolTip,,,, %CurrentTip%
