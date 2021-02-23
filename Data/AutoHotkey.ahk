@@ -1,6 +1,7 @@
 
 
 ;^-- auto-execute section "toprow"
+;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
 ;#	Win (Windows logo key
 ;!	Alt
 ;^	Control
@@ -59,17 +60,10 @@ PrintScreen:: ;runs snipping tool
 return
 
 
-#IfWinActive, MTGA
-Space::
-while not(GetKeyState("LButton"))
-{
-	IfWinActive, MTGA
-	{
-		SendInput {enter}
-		SendInput {Click}
-		Sleep, 1000
-	}
-}           
+#IfWinActive, ahk_exe powershell_ise.exe
+^ & RControl::
+		SendInput {F5}
+return
 
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
