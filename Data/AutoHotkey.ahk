@@ -1,5 +1,4 @@
 
-
 ;^-- auto-execute section "toprow"
 ;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
 ;#	Win (Windows logo key
@@ -54,14 +53,8 @@ PrintScreen:: ;runs snipping tool
 	return
 }
 
-#IfWinActive ahk_class POEWindowClass
-	
-	Send {enter} /exit {enter}
-return
-
-
-#IfWinActive, ahk_exe powershell_ise.exe
-^ & RControl::
+RControl & Enter::
+	IfWinActive ahk_exe powershell_ise.exe
 		SendInput {F5}
 return
 
