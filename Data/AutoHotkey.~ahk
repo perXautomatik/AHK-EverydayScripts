@@ -14,15 +14,19 @@ WM_COMMAND(wParam)
     }
 }
 
-^g::
-#Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
-   transform ,topclip,unicode
-   clipboard =  ;clear clipboard so you can use clipwait 
-   send ^c 
-   clipwait   ;erratic results without this 
-   transform ,appendclip,unicode   
-   transform ,clipboard,unicode, %topclip%`r`n%appendclip% 
-return
+Custom_Edit()
+{
+    static TITLE := "AhkPad - " A_ScriptFullPath
+    if !WinExist(TITLE)
+    {
+        Run  "E:\Program Files\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
+        WinWait ahk_pid %pid%,, 2
+        if ErrorLevel
+            return
+        WinSetTitle %TITLE%
+    }
+    WinActivate
+}
 
 ;^-- auto-execute section "toprow"
 ;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
