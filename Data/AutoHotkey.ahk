@@ -15,7 +15,7 @@ WM_COMMAND(wParam)
 }
 
 ;Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
-^g::                 
+^w::                 
 	;transform ,topclip,unicode Deprecated: This command is not recommended for use in new scripts. For details on what you can use instead, see the sub-command sections below.
 
    topclip := ClipboardAll   ; Save the entire clipboard to a variable of your choice. ; ... here make temporary use of the clipboard, such as for pasting Unicode text via Transform Unicode ...   
