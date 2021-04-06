@@ -14,8 +14,8 @@ WM_COMMAND(wParam)
     }
 }
 
+;Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
 ^g::
-#Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
    transform ,topclip,unicode
    clipboard =  ;clear clipboard so you can use clipwait 
    send ^c 
