@@ -4,15 +4,6 @@ SetWorkingDir, %A_ScriptDir%
 
 OnMessage(0x111, "WM_COMMAND")
 
-WM_COMMAND(wParam)
-{
-    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
-         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
-    {
-        Custom_Edit()
-        return true
-    }
-}
 
 ;Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
 ^w::                 

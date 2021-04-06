@@ -14,7 +14,7 @@ OnMessage(0x111, "WM_COMMAND")
    send ^c 
    clipwait   ;erratic results without this 
    appendclip := ClipboardAll
-   Clipboard := %topclip%`r`n%appendclip%    ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
+   Clipboard := topclip`r`n appendclip    ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
    topclip := ""   ; Free the memory in case the clipboard was very large.
    appendclip := ""
 return
