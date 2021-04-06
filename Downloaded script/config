@@ -1,7 +1,7 @@
 [core]
 	repositoryformatversion = 0
-	filemode = false
-	bare = true
+	filemode = true
+	bare = false
 	ignorecase = true
 [remote "origin"]
 	url = https://gist.github.com/62718fb9a818a3bbe6628f35909f8266
