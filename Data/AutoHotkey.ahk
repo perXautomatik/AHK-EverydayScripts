@@ -1,3 +1,7 @@
+#SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
+
 OnMessage(0x111, "WM_COMMAND")
 
 WM_COMMAND(wParam)
