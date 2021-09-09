@@ -1,16 +1,20 @@
-OnMessage(0x111, "WM_COMMAND")
+;#NoTrayIcon
+#SingleInstance, Force
+#Persistent
 
-WM_COMMAND(wParam)
+;NiceBlue = BED2E8
+;Pass := IBox("Please input Outlook password", Pass, "Password")
+GenTip(A_Scriptname . " has started!")
+While ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
 {
-    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
-         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
-    {
-        Custom_Edit()
-        return true
-    }
-}
 
-Custom_Edit()
+;SetTitleMatchMode, 2
+;SetTitleMatchMode, slow
+
+UniqueID := WinExist, Security Alert ;WinExist("ahk_class Security Alert") or WinExist("ahk_class" . #32770)
+
+	GenTip(A_Scriptname . %UniqueID)
+
 {
     static TITLE := "AhkPad - " A_ScriptFullPath
     if !WinExist(TITLE)
@@ -122,6 +126,9 @@ AFP(WinTitle="A")
 }
 
 
+;WinWaitActive, Security Alert, 
+;Send,{tab}{return}
+;MouseClick, left,  150,  127 
 
 ;tried all sorts of ways to control the alt key but seems like the contrl key is not logicaly in downstate due to remote control
   ^TAB::
@@ -142,49 +149,14 @@ return
 }
 
 
-PrintScreen:: ;runs snipping tool 
-;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
+;GenTip(A_Scriptname . " after!")
+Sleep 1000 ; just in case  147,  101
 
-{
-	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
-	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-		{	
-			WinRestore
-			Send, ^n
-		}
-		else if WinActive()
-			WinMinimize
-		else
-		{
-			WinActivate
-			Send, ^n
-		}
-	}
-	else if WinExist("ahk_class Microsoft-Windows-.*SnipperEditor")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-			WinRestore
-		else if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	}
-	else
-	{
-		Run, snippingtool.exe
-		if (SubStr(A_OSVersion,1,2)=10)
-		{
-			WinWait, ahk_class Microsoft-Windows-.*SnipperToolbar,,3
-			Send, ^n
-		}
-	}
-	SetTitleMatchMode, %Setting_A_TitleMatchMode%
-	return
+
+;}	
+		
 }
+SetTimer, Restart, 100
 
 
 #ifwinactive, AutoHotkey.ahk - Anteckningar
@@ -201,20 +173,86 @@ RemoveToolTip:
 tooltip
 return
 }
+Return
 
-;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
+Restart:
+If ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
+	Reload
+Return
 
-<#t::
-if WinActive("ahk_class CabinetWClass") 
-or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
+Critical:
+!esc::
+MsgBox, 0, Closing, %A_ScriptName% is closing, 1
+ExitApp
+Return
+
+#esc::
+reload
+Return
+
+
+IBox(Prompt, Default="", Options="") {
+	Static MyInputBoxEditCtrl
+	Global NiceBlue
+	Gui, 55: Default
+	Gui, +LabelMyInputBox +ToolWindow
+	Gui, Margin, 20, 10
+	Gui, Color, %NiceBlue%
+	Gui, Add, Text, w360, %Prompt%
+	Gui, Add, Edit, r1 wp %Options% vMyInputBoxEditCtrl
+	Gui, Add, Button, yp+40 xp gInputBoxSubmitVariables Default, OK
+	Gui, Add, Button, gDoNotInputBoxSubmitVariables yp xp300, Cancel
+	Gui, Show,, Input is needed...
+	WinWaitClose, Input is needed...
+	Return RetVar
+
+	InputBoxSubmitVariables:
+	Gui, Submit
+	RetVar := MyInputBoxEditCtrl
+	MyInputBoxEscape:
+	MyInputBoxClose:
+	DoNotInputBoxSubmitVariables:
+	Gui, Destroy
+	If !StrLen(RetVar)
+		ErrorLevel := 1
+	Return
+}	
+GenTip(Text) {
+	CenTip(Text)
+	Seconds := Ceil(StrLen(Text)*60)
+	EndTip(Seconds, 14)
 }
-else
-{
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+CenTip(Text) {
+	If Text =
+	{
+		ToolTip,,,,14
+		Return
+	}
+	CoordMode, ToolTip, Screen
+	Len := StrLen(Text)
+	If Len > 25
+		Len := Len*4.8
+	Else If Len <= 25
+		Len := Len*5.2
+	X := (A_ScreenWidth/2)-(Len/2)
+	Y := (A_ScreenHeight-20)/2
+	ToolTip, %Text%, %X%, %Y%, 14
+	Return
 }
-return
+EndTip(Time, Tip) {
+	global CurrentTip
+	CurrentTip := Tip
+	SetTimer, EndTip, %Time%
+	Return Tip
+}
+CtrlSetText(Control, Text="", WinTitle="", OptionalEndKey="") {
+	Global Active
+	If !WinTitle
+		WinTitle = A
+	ControlSetText, %Control%, %Text%, %WinTitle%
+	If OptionalEndKey
+		Send % OptionalEndKey
+	Return Abs(ErrorLevel-1)
+}
+EndTip:
+ToolTip,,,, %CurrentTip%
