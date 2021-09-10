@@ -29,3 +29,5 @@ return
 ; Please read the QUICK-START TUTORIAL near the top of the help file.
 ; It explains how to perform common automation tasks such as sending
 ; keystrokes and mouse clicks.  It also explains more about hotkeys.
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}

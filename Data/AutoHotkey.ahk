@@ -1,17 +1,10 @@
-; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
-; semicolon, such as this one, are comments.  They are not executed.
-
-; This script has a special filename and path because it is automatically
-; launched when you run the program directly.  Also, any text file whose
-; name ends in .ahk is associated with the program, which means that it
-; can be launched simply by double-clicking it.  You can have as many .ahk
-; files as you want, located in any folder.  You can also run more than
-; one .ahk file simultaneously and each will get its own tray icon.
-
-; SAMPLE HOTKEYS: Below are two sample hotkeys.  The first is Win+Z and it
-; launches a web site in the default browser.  The second is Control+Alt+N
-; and it launches a new Notepad window (or activates an existing one).  To
-; try out these hotkeys, run AutoHotkey again, which will load this file.
+;#	Win (Windows logo key
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
 
 #z::Run www.autohotkey.com
 
@@ -32,3 +25,62 @@ return
 
 #PgUp::Send {Volume_Up 1}
 #PgDn::Send {Volume_Down 1}
+
+PrintScreen::
+IfWinExist Skärmklippverktyget
+	WinActivate
+  
+	Run, "%windir%\system32\SnippingTool.exe"
+return
+
+;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
+
+LWin & T::
+if WinActive("ahk_class CabinetWClass") 
+or WinActive("ahk_class ExploreWClass")
+{
+  Send {Shift Down}{AppsKey}{Shift Up}
+  Sleep 10
+  Send w{enter}
+}
+else
+{
+  run, cmd, C:\
+}
+return
+
+
+!g::
+if (dostuff != off)
+{ then
+SetTimer, dostuff, 10
+return
+}
+else
+settimer, dostuff, off
+return
+}
+
+dostuff:
+;do stuff
+send, click, right, down
+Return
+
+#IfWinActive ahk_class POEWindowClass
+	§::
+	Send {enter} /exit {enter}
+return
+
+
+#IfWinActive, MTGA
+Space::
+while not(GetKeyState("LButton"))
+{
+	IfWinActive, MTGA
+	{
+		SendInput {Space}
+		SendInput {Click}
+		Sleep, 1000
+	}
+
+}
