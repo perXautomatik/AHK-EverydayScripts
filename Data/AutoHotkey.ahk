@@ -173,22 +173,6 @@ RemoveToolTip:
 tooltip
 return
 }
-Return
-
-Restart:
-If ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
-	Reload
-Return
-
-Critical:
-!esc::
-MsgBox, 0, Closing, %A_ScriptName% is closing, 1
-ExitApp
-Return
-
-#esc::
-reload
-Return
 
 
 IBox(Prompt, Default="", Options="") {
