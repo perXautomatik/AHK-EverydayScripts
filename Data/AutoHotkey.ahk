@@ -1,107 +1,242 @@
+;#NoTrayIcon
+#SingleInstance, Force
+#Persistent
 
-^!n::
-IfWinExist Untitled - Notepad
-	WinActivate
-else
-	Run Notepad
-return
+;NiceBlue = BED2E8
+;Pass := IBox("Please input Outlook password", Pass, "Password")
+GenTip(A_Scriptname . " has started!")
+While ((A_TimeIdlePhysical < 1800000) && !WinExist("Idle timer expired"))
+{
 
+;SetTitleMatchMode, 2
+;SetTitleMatchMode, slow
 
-!g::
-if (dostuff != off)
-{ then
-SetTimer, dostuff, 10
-return
-}
-else {
-settimer, dostuff, off
-return
-}
+UniqueID := WinExist, Security Alert ;WinExist("ahk_class Security Alert") or WinExist("ahk_class" . #32770)
 
-dostuff:
-;do stuff
-send, click, right, down
-Return
-
-#PgUp::Send {Volume_Up 1}
-#PgDn::Send {Volume_Down 1}
-
-PrintScreen:: ;runs snipping tool 
-;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
+	GenTip(A_Scriptname . %UniqueID)
 
 {
-	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
-	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
+    static TITLE := "AhkPad - " A_ScriptFullPath
+    if !WinExist(TITLE)
+    {
+        Run  "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
+        WinWait ahk_pid %pid%,, 2
+        if ErrorLevel
+            return
+        WinSetTitle %TITLE%
+    }
+}
+;^-- auto-execute section "toprow"
+;#	Win (Windows logo key
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
+
+;[copy from:Get current explorer window path - AutoHotkey Community when: @https://bit.ly/3spOZt2]
+GetActiveExplorerPath()
+{
+	explorerHwnd := WinActive("ahk_class CabinetWClass")
+	if (explorerHwnd)
 	{
-		WinGet, State, MinMax
-		if (State = -1)
-		{	
-			WinRestore
-			Send, ^n
-		}
-		else if WinActive()
-			WinMinimize
-		else
+		for window in ComObjCreate("Shell.Application").Windows
 		{
-			WinActivate
-			Send, ^n
+			if (window.hwnd==explorerHwnd)
+			{
+				return window.Document.Folder.Self.Path
+			}
 		}
 	}
-	else if WinExist("ahk_class Microsoft-Windows-.*SnipperEditor")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-			WinRestore
-		else if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	}
-	else
-	{
-		Run, snippingtool.exe
-		if (SubStr(A_OSVersion,1,2)=10)
-		{
-			WinWait, ahk_class Microsoft-Windows-.*SnipperToolbar,,3
-			Send, ^n
-		}
-	}
-	SetTitleMatchMode, %Setting_A_TitleMatchMode%
-	return
 }
 
-#IfWinActive ahk_class POEWindowClass
-	§::
-	Send {enter} /exit {enter}
-return
+#SingleInstance force
 
-
-#IfWinActive, MTGA
-Space::
-while not(GetKeyState("LButton"))
-{
-	IfWinActive, MTGA
-	{
-		SendInput {Space}
-		SendInput {Click}
-		Sleep, 1000
-	}
-
-}           
-
-
-;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
-
-LWin & T::
-if WinActive("ahk_class CabinetWClass") 
-or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
+^#v::
+InputBox,  filename, Clipboard to file, Enter a file name,,300,130
+if ErrorLevel
+    return
+if !(filename) {
+    filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
 }
+fext:=GetExtension(filename)
+; get current explorer path
+afp:=AFP()
+
+If (FileExist(Afp . filename) && (fext)) {
+    msgbox ,33,file, File already exists. Overwrite?
+    IfMsgBox, Cancel
+    Return  
+        IfMsgBox, OK 
+        {  
+            FileDelete, % afp . filename
+            sleep, 200
+        }
+}
+
+If (FileExist(Afp . filename . ".txt") && !(fext) ) {
+    msgbox ,33,file,  File already exists. Overwrite?
+    IfMsgBox, Cancel
+    Return  
+        IfMsgBox, OK 
+        {  
+            FileDelete, % afp . filename . ".txt"
+            sleep, 200
+        }
+}
+
+if (fext) && (filename)
+    fileappend, % clipboard, % afp . filename
 else
-{
-  run, cmd, C:\
-}
+    fileappend, % clipboard, % afp . filename . ".txt"
 return
+
+GetExtension(vpath) {
+return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
+}
+
+; based on ActiveFolderPath() by Scoox https://autohotkey.com/board/topic/70960-detect-current-windows-explorer-location/
+AFP(WinTitle="A")
+{
+    WinGetClass, Class, %WinTitle%
+    If (Class ~= "Program|WorkerW") ;desktop
+    {
+        WinPath := A_Desktop
+    }
+    Else ;all other windows
+    {
+        WinGetText, WinPath, A
+        RegExMatch(WinPath, ".:\\.*", WinPath)
+        for w in ComObjCreate("Shell.Application").Windows    ; grab the folder path
+        {
+            aac = % w.Document.Folder.Self.Path
+            if (WinPath=aac) {
+                valid:=1
+                break
+            }
+        }   
+    }
+ if !valid
+    return
+    WinPath := RegExReplace(WinPath, "\\+$") 
+    If WinPath 
+        WinPath .= "\"
+    Return WinPath
+}
+
+
+;WinWaitActive, Security Alert, 
+;Send,{tab}{return}
+;MouseClick, left,  150,  127 
+
+;tried all sorts of ways to control the alt key but seems like the contrl key is not logicaly in downstate due to remote control
+  ^TAB::
+  send {ALT down}{TAB}
+	sleep 2000
+	send {ALT up}	
+return
+
+
+SetTitleMatchMode, 1 ; match titles begining with specified string
+
+
+#ifwinactive, C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk - AutoHotkey
+{
+^ENTER::
+send {F5}
+return
+}
+
+
+;GenTip(A_Scriptname . " after!")
+Sleep 1000 ; just in case  147,  101
+
+
+;}	
+		
+}
+SetTimer, Restart, 100
+
+
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+{
+^s::
+send, {ctrl down}s{ctrl up}
+tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
+SetTimer, RemoveToolTip, 3000
+sleep 100
+reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
+
+
+RemoveToolTip:
+tooltip
+return
+}
+
+
+IBox(Prompt, Default="", Options="") {
+	Static MyInputBoxEditCtrl
+	Global NiceBlue
+	Gui, 55: Default
+	Gui, +LabelMyInputBox +ToolWindow
+	Gui, Margin, 20, 10
+	Gui, Color, %NiceBlue%
+	Gui, Add, Text, w360, %Prompt%
+	Gui, Add, Edit, r1 wp %Options% vMyInputBoxEditCtrl
+	Gui, Add, Button, yp+40 xp gInputBoxSubmitVariables Default, OK
+	Gui, Add, Button, gDoNotInputBoxSubmitVariables yp xp300, Cancel
+	Gui, Show,, Input is needed...
+	WinWaitClose, Input is needed...
+	Return RetVar
+
+	InputBoxSubmitVariables:
+	Gui, Submit
+	RetVar := MyInputBoxEditCtrl
+	MyInputBoxEscape:
+	MyInputBoxClose:
+	DoNotInputBoxSubmitVariables:
+	Gui, Destroy
+	If !StrLen(RetVar)
+		ErrorLevel := 1
+	Return
+}	
+GenTip(Text) {
+	CenTip(Text)
+	Seconds := Ceil(StrLen(Text)*60)
+	EndTip(Seconds, 14)
+}
+CenTip(Text) {
+	If Text =
+	{
+		ToolTip,,,,14
+		Return
+	}
+	CoordMode, ToolTip, Screen
+	Len := StrLen(Text)
+	If Len > 25
+		Len := Len*4.8
+	Else If Len <= 25
+		Len := Len*5.2
+	X := (A_ScreenWidth/2)-(Len/2)
+	Y := (A_ScreenHeight-20)/2
+	ToolTip, %Text%, %X%, %Y%, 14
+	Return
+}
+EndTip(Time, Tip) {
+	global CurrentTip
+	CurrentTip := Tip
+	SetTimer, EndTip, %Time%
+	Return Tip
+}
+CtrlSetText(Control, Text="", WinTitle="", OptionalEndKey="") {
+	Global Active
+	If !WinTitle
+		WinTitle = A
+	ControlSetText, %Control%, %Text%, %WinTitle%
+	If OptionalEndKey
+		Send % OptionalEndKey
+	Return Abs(ErrorLevel-1)
+}
+EndTip:
+ToolTip,,,, %CurrentTip%
