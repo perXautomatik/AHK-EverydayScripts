@@ -234,6 +234,10 @@ PrintScreen:: ;runs snipping tool
 	return
 }
 
+#IfWinActive ahk_class POEWindowClass
+	§::
+	Send {enter} /exit {enter}
+return
 
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
