@@ -48,7 +48,7 @@ GetActiveExplorerPath()
 }
 
 #SingleInstance force
-
+;Module: paset as file
 ^#v::
 InputBox,  filename, Clipboard to file, Enter a file name,,300,130
 if ErrorLevel
