@@ -9,7 +9,7 @@ WM_COMMAND(wParam)
         return true
     }
 }
-
+;open In vscode
 Custom_Edit()
 {
     static TITLE := "AhkPad - " A_ScriptFullPath
@@ -22,14 +22,10 @@ Custom_Edit()
         WinSetTitle %TITLE%
     }
 }
-;^-- auto-execute section "toprow"
-;#	Win (Windows logo key
-;!	Alt
-;^	Control
-;+	Shift
-;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
-;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
-;>	Use the right key of the pair.
+
+;^-- auto-execute section "toprow"----------------------------------------------------------------
+
+;v-- method implementations ---------------------------------------------------------------
 
 ;[copy from:Get current explorer window path - AutoHotkey Community when: @https://bit.ly/3spOZt2]
 GetActiveExplorerPath()
@@ -47,46 +43,6 @@ GetActiveExplorerPath()
 	}
 }
 
-#SingleInstance force
-;Module: paset as file
-^#v::
-InputBox,  filename, Clipboard to file, Enter a file name,,300,130
-if ErrorLevel
-    return
-if !(filename) {
-    filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
-}
-fext:=GetExtension(filename)
-; get current explorer path
-afp:=AFP()
-
-If (FileExist(Afp . filename) && (fext)) {
-    msgbox ,33,file, File already exists. Overwrite?
-    IfMsgBox, Cancel
-    Return  
-        IfMsgBox, OK 
-        {  
-            FileDelete, % afp . filename
-            sleep, 200
-        }
-}
-
-If (FileExist(Afp . filename . ".txt") && !(fext) ) {
-    msgbox ,33,file,  File already exists. Overwrite?
-    IfMsgBox, Cancel
-    Return  
-        IfMsgBox, OK 
-        {  
-            FileDelete, % afp . filename . ".txt"
-            sleep, 200
-        }
-}
-
-if (fext) && (filename)
-    fileappend, % clipboard, % afp . filename
-else
-    fileappend, % clipboard, % afp . filename . ".txt"
-return
 
 GetExtension(vpath) {
 return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
@@ -122,6 +78,58 @@ AFP(WinTitle="A")
 }
 
 
+;MethodCalls;-------------------------------------------------------------------------------
+
+
+;#	Win (Windows logo key
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
+
+#SingleInstance force
+;Module: paset as file
+^#v::
+    InputBox,  filename, Clipboard to file, Enter a file name,,300,130
+    if ErrorLevel
+        return
+    if !(filename) {
+        filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
+    }
+    fext:=GetExtension(filename)
+    ; get current explorer path
+    afp:=AFP()
+
+    If (FileExist(Afp . filename) && (fext)) {
+        msgbox ,33,file, File already exists. Overwrite?
+        IfMsgBox, Cancel
+        Return  
+            IfMsgBox, OK 
+            {  
+                FileDelete, % afp . filename
+                sleep, 200
+            }
+    }
+
+    If (FileExist(Afp . filename . ".txt") && !(fext) ) {
+        msgbox ,33,file,  File already exists. Overwrite?
+        IfMsgBox, Cancel
+        Return  
+            IfMsgBox, OK 
+            {  
+                FileDelete, % afp . filename . ".txt"
+                sleep, 200
+            }
+    }
+
+    if (fext) && (filename)
+        fileappend, % clipboard, % afp . filename
+    else
+        fileappend, % clipboard, % afp . filename . ".txt"
+    return
+return
 
 ;tried all sorts of ways to control the alt key but seems like the contrl key is not logicaly in downstate due to remote control
   ^TAB::
@@ -190,16 +198,16 @@ PrintScreen:: ;runs snipping tool
 #ifwinactive, AutoHotkey.ahk - Anteckningar
 {
 ^s::
-send, {ctrl down}s{ctrl up}
-tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
-SetTimer, RemoveToolTip, 3000
-sleep 100
-reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
+    send, {ctrl down}s{ctrl up}
+    tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
+    SetTimer, RemoveToolTip, 3000
+    sleep 100
+    reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
 
 
-RemoveToolTip:
-tooltip
-return
+    RemoveToolTip:
+    tooltip
+    return
 }
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
@@ -207,14 +215,14 @@ return
 <#t::
 if WinActive("ahk_class CabinetWClass") 
 or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
-}
-else
-{
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
-}
+    {
+    Send {Shift Down}{AppsKey}{Shift Up}
+    Sleep 10
+    Send w{enter}
+    }
+    else
+    {
+    EnvGet, SystemRoot, SystemRoot
+    Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+    }
 return
