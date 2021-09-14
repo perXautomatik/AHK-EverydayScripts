@@ -1,3 +1,6 @@
+#SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
 
 WM_COMMAND(wParam)
@@ -150,6 +153,43 @@ return
 }
 
 
+RControl & Enter::
+	IfWinActive ahk_exe powershell_ise.exe
+		SendInput {F5}
+return
+
+;shift+win+E to kill windows
+#+e::
+   Run, taskkill.exe /im explorer.exe /f
+Return
+;ctrl+shift+e to run explorer
+^+e::
+   Run, explorer.exe
+Return
+;rightclick with ctrl+G
+^g::
+Send, {Rbutton}
+
+
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
+
+
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+{
+^s::
+    send, {ctrl down}s{ctrl up}
+    tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
+    SetTimer, RemoveToolTip, 3000
+    sleep 100
+    reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
+
+
+    RemoveToolTip:
+    tooltip
+    return
+}
+
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
 
@@ -195,20 +235,6 @@ PrintScreen:: ;runs snipping tool
 }
 
 
-#ifwinactive, AutoHotkey.ahk - Anteckningar
-{
-^s::
-    send, {ctrl down}s{ctrl up}
-    tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
-    SetTimer, RemoveToolTip, 3000
-    sleep 100
-    reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
-
-
-    RemoveToolTip:
-    tooltip
-    return
-}
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
 
@@ -218,7 +244,7 @@ or WinActive("ahk_class ExploreWClass")
     {
     Send {Shift Down}{AppsKey}{Shift Up}
     Sleep 10
-    Send w{enter}
+    Send {enter}
     }
     else
     {
