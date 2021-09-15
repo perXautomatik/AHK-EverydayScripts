@@ -1,1 +1,0 @@
-powershellAtcurrentExplorer.ahk
