@@ -30,21 +30,7 @@ Custom_Edit()
 
 ;v-- method implementations ---------------------------------------------------------------
 
-;[copy from:Get current explorer window path - AutoHotkey Community when: @https://bit.ly/3spOZt2]
-GetActiveExplorerPath()
-{
-	explorerHwnd := WinActive("ahk_class CabinetWClass")
-	if (explorerHwnd)
-	{
-		for window in ComObjCreate("Shell.Application").Windows
-		{
-			if (window.hwnd==explorerHwnd)
-			{
-				return window.Document.Folder.Self.Path
-			}
-		}
-	}
-}
+#include modular\activeExplorerPath.ahk
 
 
 GetExtension(vpath) {
@@ -250,12 +236,7 @@ PrintScreen:: ;runs snipping tool
 	return
 }
 
-#IfWinActive ahk_class POEWindowClass
-	�::
-	Send {enter} /exit {enter}
-return
-
-
+#include modular\ExitPoe.ahk
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
 
 <#t::
