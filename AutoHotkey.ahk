@@ -35,13 +35,21 @@ WM_COMMAND(wParam)
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
-#SingleInstance force
+#include modular\RestartExplorer.ahk
+#include modular\rightclickWithg.ahk
+#include modular\pShellAtCurrent.ahk
+#include modular\SnipPrinting.ahk
+
+;#include modular\volumePageUpdown.ahk
+
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
+
+#Include modular\SavingReloades.ahk
 
 #include modular\pasteAsFile.ahk
 
 #include modular\altTab.ahk
-
-
 
 #include modular\refreshAhkWindow.ahk
 
@@ -49,16 +57,7 @@ WM_COMMAND(wParam)
 
 
 #include modular\ctrlEnterToexecute.ahk
-
-#include modular\RestartExplorer.ahk
-#include modular\rightclickWithg.ahk
-
-#include modular\volumePageUpdown.ahk
-
-#Include modular\SavingReloades.ahk
-
-#include modular\SnipPrinting.ahk
 #include modular\ExitPoe.ahk
-#include modular\pShellAtCurrent.ahk
+
 
 ExitApp
