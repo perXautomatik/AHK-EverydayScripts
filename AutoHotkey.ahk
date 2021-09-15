@@ -40,14 +40,11 @@ WM_COMMAND(wParam)
 #include modular\pShellAtCurrent.ahk
 #include modular\SnipPrinting.ahk
 
-;#include modular\volumePageUpdown.ahk
-
-#PgUp::Send {Volume_Up 1}
-#PgDn::Send {Volume_Down 1}
-
-#Include modular\SavingReloades.ahk
+#include modular\volumePageUpdown.ahk
 
 #include modular\pasteAsFile.ahk
+
+#Include modular\SavingReloades.ahk
 
 #include modular\altTab.ahk
 
