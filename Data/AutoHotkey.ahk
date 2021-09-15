@@ -12,60 +12,17 @@ WM_COMMAND(wParam)
         return true
     }
 }
-;open In vscode
-Custom_Edit()
-{
-    static TITLE := "AhkPad - " A_ScriptFullPath
-    if !WinExist(TITLE)
-    {
-        Run  "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
-        WinWait ahk_pid %pid%,, 2
-        if ErrorLevel
-            return
-        WinSetTitle %TITLE%
-    }
-}
+
+#include modular\openInVscode.ahk
+
+#include modular\getExtension.ahk
 
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 
 ;v-- method implementations ---------------------------------------------------------------
 
 #include modular\activeExplorerPath.ahk
-
-
-GetExtension(vpath) {
-return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
-}
-
-; based on ActiveFolderPath() by Scoox https://autohotkey.com/board/topic/70960-detect-current-windows-explorer-location/
-AFP(WinTitle="A")
-{
-    WinGetClass, Class, %WinTitle%
-    If (Class ~= "Program|WorkerW") ;desktop
-    {
-        WinPath := A_Desktop
-    }
-    Else ;all other windows
-    {
-        WinGetText, WinPath, A
-        RegExMatch(WinPath, ".:\\.*", WinPath)
-        for w in ComObjCreate("Shell.Application").Windows    ; grab the folder path
-        {
-            aac = % w.Document.Folder.Self.Path
-            if (WinPath=aac) {
-                valid:=1
-                break
-            }
-        }   
-    }
- if !valid
-    return
-    WinPath := RegExReplace(WinPath, "\\+$") 
-    If WinPath 
-        WinPath .= "\"
-    Return WinPath
-}
-
+#include modular\afp.ahk
 
 ;MethodCalls;-------------------------------------------------------------------------------
 
@@ -103,3 +60,5 @@ AFP(WinTitle="A")
 #include modular\SnipPrinting.ahk
 #include modular\ExitPoe.ahk
 #include modular\pShellAtCurrent.ahk
+
+ExitApp
