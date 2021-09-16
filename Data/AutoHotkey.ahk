@@ -41,19 +41,14 @@ WM_COMMAND(wParam)
 #include modular\SnipPrinting.ahk
 
 #include modular\volumePageUpdown.ahk
-
 #include modular\pasteAsFile.ahk
 
-#Include modular\SavingReloades.ahk
-
-#include modular\altTab.ahk
-
-#include modular\refreshAhkWindow.ahk
-
 #include modular\appendClippboard.ahk
-
-
 #include modular\ctrlEnterToexecute.ahk
+
+#Include modular\SavingReloades.ahk
+#include modular\altTab.ahk
+#include modular\refreshAhkWindow.ahk
 #include modular\ExitPoe.ahk
 
 
