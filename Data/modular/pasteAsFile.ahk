@@ -1,17 +1,20 @@
-GetExtension2(vpath) {
-return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
-}
+#include modular\getExtension.ahk
 
+;^-- auto-execute section "toprow"----------------------------------------------------------------
+
+;v-- method implementations ---------------------------------------------------------------
+
+#include modular\activeExplorerPath.ahk
+#include modular\afp.ahk
 
 pasteAsFile(){
-
     InputBox,  filename, Clipboard to file, Enter a file name,,300,130
     if ErrorLevel
         return
     if !(filename) {
         filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
     }
-    fext:=GetExtension2(filename)
+    fext:=GetExtension(filename)
     ; get current explorer path
     afp:=AFP()
 
@@ -43,4 +46,5 @@ pasteAsFile(){
         fileappend, % clipboard, % afp . filename . ".txt"
     return
 return
+
 }
