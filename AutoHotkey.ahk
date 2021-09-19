@@ -40,8 +40,9 @@ WM_COMMAND(wParam)
 #include modular\pShellAtCurrent.ahk
 #include modular\SnipPrinting.ahk
 
-#include modular\volumePageUpdown.ahk
 #include modular\pasteAsFile.ahk
+
+#include modular\volumePageUpdown.ahk
 
 #include modular\appendClippboard.ahk
 #include modular\ctrlEnterToexecute.ahk
