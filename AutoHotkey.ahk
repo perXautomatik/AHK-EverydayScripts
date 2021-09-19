@@ -35,17 +35,16 @@ WM_COMMAND(wParam)
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
-#include modular\pasteAsFile.ahk
-;Module: paset as file
-^#v::pasteAsFile()
-
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
 #include modular\pShellAtCurrent.ahk
 #include modular\SnipPrinting.ahk
 
-
 #include modular\volumePageUpdown.ahk
+#include modular\pasteAsFile.ahk
+;Module: paset as file
+^+v::pasteAsFile()
+
 
 #include modular\appendClippboard.ahk
 #include modular\ctrlEnterToexecute.ahk
