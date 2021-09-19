@@ -1,4 +1,4 @@
-GetExtension(vpath) {
+GetExtension2(vpath) {
 return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
 }
 
@@ -11,7 +11,7 @@ pasteAsFile(){
     if !(filename) {
         filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
     }
-    fext:=GetExtension(filename)
+    fext:=GetExtension2(filename)
     ; get current explorer path
     afp:=AFP()
 
