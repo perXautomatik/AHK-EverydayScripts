@@ -36,6 +36,9 @@ WM_COMMAND(wParam)
 ;>	Use the right key of the pair.
 
 #include modular\pasteAsFile.ahk
+;Module: paset as file
+^#v::pasteAsFile()
+
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
 #include modular\pShellAtCurrent.ahk
