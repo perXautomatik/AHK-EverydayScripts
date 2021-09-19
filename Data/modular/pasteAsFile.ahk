@@ -1,5 +1,10 @@
-;Module: paset as file
-^#v::
+GetExtension(vpath) {
+return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
+}
+
+
+pasteAsFile(){
+
     InputBox,  filename, Clipboard to file, Enter a file name,,300,130
     if ErrorLevel
         return
@@ -38,4 +43,4 @@
         fileappend, % clipboard, % afp . filename . ".txt"
     return
 return
-
+}
