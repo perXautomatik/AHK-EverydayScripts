@@ -52,6 +52,10 @@ laodToolTip("reloaded")
 #include modular\reloadScript.ahk
 !+r::reloadScript()
 
+;doesn't work
+#include modular\pShellAtCurrent.ahk
+#p::pShellAtCurrent()
+
 
 
 ;works
@@ -72,23 +76,30 @@ laodToolTip("reloaded")
 ^+v::pasteAsFile()
 
 
-;doesn'tWork (it's called but it doesn't paste the text expected)
-#include modular\temp.ahk
-!+1::temp()
-
-;doesn't work
-#include modular\pShellAtCurrent.ahk
-<#t::pShellAtCurrent()
 
 
-;works (but pastes return into editor...)
+;works
 #include modular\volumePageUpdown.ahk
 
 ;works
 #include modular\ctrlEnterToexecute.ahk
 #ifwinactive, ahk_exe powershell_ise.exe
     ^Enter::sendF5()
+#ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
+    ^Enter::sendF5()
 #if
+
+;works
+#Include modular\SavingReloades.ahk
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+        ^s::SavingReloadsAhkWindow()
+#if
+
+
+
+;doesn'tWork (it's called but it doesn't paste the text expected)
+#include modular\temp.ahk
+!+1::temp()
 
 
 ;unsure/irrelevant
@@ -98,14 +109,14 @@ laodToolTip("reloaded")
 ^w::appendClipboard()
 
 
-#Include modular\SavingReloades.ahk
 
-#ifwinactive, AutoHotkey.ahk - Anteckningar
-        ^s::SavingReloadsAhkWindow()
-#if
+
 
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
+
+
+
 #include modular\ExitPoe.ahk
 
 
