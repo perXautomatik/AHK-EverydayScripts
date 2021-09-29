@@ -84,6 +84,11 @@ laodToolTip("reloaded")
 ;works (but pastes return into editor...)
 #include modular\volumePageUpdown.ahk
 
+#include modular\ctrlEnterToexecute.ahk
+#ifwinactive, ahk_exe powershell_ise.exe
+    RControl & Enter::sendF5()
+#if
+
 
 ;unsure/irrelevant
 
@@ -91,24 +96,12 @@ laodToolTip("reloaded")
 #include modular\appendClippboard.ahk
 ^w::appendClipboard()
 
-#include modular\ctrlEnterToexecute.ahk
-
-;^E
-RControl & Enter::
-IfWinActive ahk_exe powershell_ise.exe
-{
-laodToolTip("triggered")
-
-            sendF5()
-            Return
-            }
-
 
 #Include modular\SavingReloades.ahk
-    #ifwinactive, AutoHotkey.ahk - Anteckningar
-    {
+
+#ifwinactive, AutoHotkey.ahk - Anteckningar
         ^s::SavingReloadsAhkWindow()
-    }
+#if
 
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
