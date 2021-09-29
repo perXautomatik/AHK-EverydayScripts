@@ -1,8 +1,18 @@
 restartExplorer(){
-   
-   Run, taskkill.exe /im explorer.exe /f
-   
+   try {
+      
+      Run, taskkill.exe /im explorer.exe /f
+      
+   } catch  {
+         MsgBox, An exception was thrown!`nSpecifically: %e%
+      Exit
+   }
    sleep, 1000
-   
-   Run, explorer.exe
+   try {
+      
+      Run, explorer.exe
+   } catch  {
+      MsgBox, An exception was thrown!`nSpecifically: %e%
+      Exit
+   }
 }
