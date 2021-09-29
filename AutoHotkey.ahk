@@ -50,8 +50,6 @@ WM_COMMAND(wParam)
 
 ;works
 #include modular\SnipPrinting.ahk 
-;works (but pastes return into editor...)
-#include modular\volumePageUpdown.ahk
 
 ;doesn'tWork
 #include modular\loadTooltip.ahk
@@ -70,9 +68,14 @@ laodToolTip("reloaded")
 #include modular\temp.ahk
 !+1::temp()
 
-
+;doesn't work
 #include modular\pShellAtCurrent.ahk
 <#t::pShellAtCurrent()
+
+
+;works (but pastes return into editor...)
+#include modular\volumePageUpdown.ahk
+
 
 #include modular\appendClippboard.ahk
 #include modular\ctrlEnterToexecute.ahk
