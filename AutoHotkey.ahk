@@ -85,6 +85,15 @@ laodToolTip("reloaded")
 
 #include modular\ctrlEnterToexecute.ahk
 
+
+>^Enter:: 
+laodToolTip("triggered")
+{IfWinActive ahk_exe powershell_ise.exe
+            sendF5()
+            Return
+            }
+
+
 #Include modular\SavingReloades.ahk
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
