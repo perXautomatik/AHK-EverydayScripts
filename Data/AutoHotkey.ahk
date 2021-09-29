@@ -35,6 +35,26 @@ WM_COMMAND(wParam)
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
 
+
+;Replaces the currently running instance of the script with a new one.
+;https://www.autohotkey.com/docs/commands/Reload.htm
+!+r::
+try
+{
+    Reload
+    Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+    MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
+    IfMsgBox, Yes, Edit
+    return
+}
+catch e  ; Handles the first error/exception raised by the block above.
+{
+    MsgBox, An exception was thrown!`nSpecifically: %e%
+    Exit
+}
+
+
+
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
 #include modular\pShellAtCurrent.ahk
