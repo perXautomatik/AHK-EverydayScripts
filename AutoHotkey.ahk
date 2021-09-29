@@ -1,4 +1,5 @@
 #SingleInstance, Force
+#Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
@@ -44,8 +45,10 @@ WM_COMMAND(wParam)
 
 ;Timed ToolTip`nThis will be displayed for 1 seconds.
 
-
 #include modular\RestartExplorer.ahk
+;shift+win+E to restart explorer
+#+e::restartExplorer()
+
 #include modular\rightclickWithg.ahk
 
 ;works

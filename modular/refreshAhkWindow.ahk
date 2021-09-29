@@ -3,5 +3,6 @@ SetTitleMatchMode, 1 ; match titles begining with specified string
 {
     ^ENTER::
     send {F5}
-    return
+    
+    exit
 }
