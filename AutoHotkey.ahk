@@ -2,6 +2,7 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
+#include modular\openInVscode.ahk
 
 customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
 
@@ -16,14 +17,13 @@ WM_COMMAND(wParam)
     }
 }
 
-#include modular\openInVscode.ahk
 
-#include modular\getExtension.ahk
+
 
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
-
 ;v-- method implementations ---------------------------------------------------------------
 
+#include modular\getExtension.ahk
 #include modular\activeExplorerPath.ahk
 #include modular\afp.ahk
 
@@ -43,28 +43,34 @@ WM_COMMAND(wParam)
 ;https://www.autohotkey.com/docs/commands/Reload.htm
 
 ;Timed ToolTip`nThis will be displayed for 1 seconds.
-#include modular\loadTooltip.ahk
 
 
-#include modular\reloadScript.ahk
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
-#include modular\pShellAtCurrent.ahk
-#include modular\SnipPrinting.ahk
 
+
+#include modular\SnipPrinting.ahk
 #include modular\volumePageUpdown.ahk
-#include modular\pasteAsFile.ahk
+
+
+#include modular\loadTooltip.ahk
 laodToolTip("reloaded")
 
+#include modular\reloadScript.ahk
 !+r::reloadScript()
 
 
-;Module: paset as file
+#include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
-#include modular\temp.ahk
 
-;"vision" 
+
+
+#include modular\temp.ahk
 !+1::temp()
+
+
+#include modular\pShellAtCurrent.ahk
+<#t::pShellAtCurrent()
 
 #include modular\appendClippboard.ahk
 #include modular\ctrlEnterToexecute.ahk
