@@ -77,7 +77,12 @@ laodToolTip("reloaded")
 #include modular\volumePageUpdown.ahk
 
 
+;unsure/irrelevant
+
+;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
+^w::appendClipboard()
+
 #include modular\ctrlEnterToexecute.ahk
 
 #Include modular\SavingReloades.ahk
