@@ -6,6 +6,9 @@ laodToolTip(inputString){
             SetTimer, RemoveToolTip, -1000
             return
 
+           RemoveToolTip:
+           tooltip
+           return
     }
     catch e  ; Handles the first error/exception raised by the block above.
     {

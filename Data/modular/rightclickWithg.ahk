@@ -2,4 +2,5 @@
 sendRightClick()
 {
     Send, {Rbutton}
+    exit
 }

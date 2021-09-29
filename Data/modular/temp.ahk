@@ -7,5 +7,5 @@ temp()
         Sleep 100
         ;save and close
         SendInput, ^+s
-        return
+        exit
     }

@@ -7,7 +7,7 @@ OnMessage(0x111, "WM_COMMAND")
 
 customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
 
-;doesn'tWork
+;doesn'tWork (it does open the folder of ahk script but doesn't open vscode)
 WM_COMMAND(wParam)
 {
     if (wParam = 65401 ; ID_FILE_EDITSCRIPT
@@ -46,6 +46,13 @@ WM_COMMAND(wParam)
 laodToolTip("reloaded")
 
 
+;Replaces the currently running instance of the script with a new one.
+;https://www.autohotkey.com/docs/commands/Reload.htm
+;works
+#include modular\reloadScript.ahk
+!+r::reloadScript()
+
+
 
 ;works
 #include modular\RestartExplorer.ahk
@@ -60,20 +67,12 @@ laodToolTip("reloaded")
 #include modular\SnipPrinting.ahk 
 
 
-
-
-;Replaces the currently running instance of the script with a new one.
-;https://www.autohotkey.com/docs/commands/Reload.htm
-;works
-#include modular\reloadScript.ahk
-!+r::reloadScript()
-
 ;works
 #include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
 
 
-;doesn'tWork
+;doesn'tWork (it's called but it doesn't paste the text expected)
 #include modular\temp.ahk
 !+1::temp()
 
@@ -87,7 +86,7 @@ laodToolTip("reloaded")
 
 
 ;unsure/irrelevant
- return 
+
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
 ^w::appendClipboard()
@@ -106,10 +105,20 @@ laodToolTip("triggered")
 
 
 #Include modular\SavingReloades.ahk
+    #ifwinactive, AutoHotkey.ahk - Anteckningar
+    {
+        ^s::SavingReloadsAhkWindow()
+    }
+
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
 #include modular\ExitPoe.ahk
 
+
+;todo show current N clipboardContents from ditto or otherwise, 
+;   alt+q
+;todo paste clipboard at N
+;   alt+f...N
 
 
 ExitApp
