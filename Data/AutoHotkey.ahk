@@ -85,10 +85,12 @@ laodToolTip("reloaded")
 
 #include modular\ctrlEnterToexecute.ahk
 
-
->^Enter:: 
+;^E
+RControl & Enter::
+IfWinActive ahk_exe powershell_ise.exe
+{
 laodToolTip("triggered")
-{IfWinActive ahk_exe powershell_ise.exe
+
             sendF5()
             Return
             }
