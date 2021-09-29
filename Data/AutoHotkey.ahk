@@ -122,6 +122,7 @@ laodToolTip("reloaded")
 
 ;todo show current N clipboardContents from ditto or otherwise, 
 ;   alt+q
+; solution?: check out - [ClipBoardMonitor](https://github.com/536/my-startup-ahk-scripts/blob/master/startup/ClipBoardMonitor/ClipBoardMonitor.ahk) - Monitor clipboard changes, show tooltip of word count for text or a temporary GUI for pictures.
 ;todo paste clipboard at N
 ;   alt+f...N
 

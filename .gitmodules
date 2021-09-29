@@ -1,0 +1,3 @@
+[submodule "AhkPortableInstaller"]
+	path = AhkPortableInstaller
+	url = https://github.com/TheArkive/ahk-pi.git
