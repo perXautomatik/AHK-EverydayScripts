@@ -40,24 +40,30 @@ WM_COMMAND(wParam)
 ;>	Use the right key of the pair.
 
 
-;Replaces the currently running instance of the script with a new one.
-;https://www.autohotkey.com/docs/commands/Reload.htm
-
 ;Timed ToolTip`nThis will be displayed for 1 seconds.
+;works
+#include modular\loadTooltip.ahk
+laodToolTip("reloaded")
 
+
+
+;works
 #include modular\RestartExplorer.ahk
 ;shift+win+E to restart explorer
 #+e::restartExplorer()
 
+;works
 #include modular\rightclickWithg.ahk
+^g::sendRightClick()
 
 ;works
 #include modular\SnipPrinting.ahk 
 
-;doesn'tWork
-#include modular\loadTooltip.ahk
-laodToolTip("reloaded")
 
+
+
+;Replaces the currently running instance of the script with a new one.
+;https://www.autohotkey.com/docs/commands/Reload.htm
 ;works
 #include modular\reloadScript.ahk
 !+r::reloadScript()
@@ -81,7 +87,7 @@ laodToolTip("reloaded")
 
 
 ;unsure/irrelevant
-
+ return 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
 ^w::appendClipboard()
@@ -103,6 +109,7 @@ laodToolTip("triggered")
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
 #include modular\ExitPoe.ahk
+
 
 
 ExitApp
