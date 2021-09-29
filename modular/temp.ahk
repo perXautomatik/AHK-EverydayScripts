@@ -1,6 +1,4 @@
-;"vision" 
-
-!+1::
+temp()
     {
         SendInput `avslutningsinitiativ sommaren 2021` ;paste "Avslutningsinitiativ sommaren 2021"
         Sleep 1000
