@@ -38,23 +38,10 @@ WM_COMMAND(wParam)
 
 ;Replaces the currently running instance of the script with a new one.
 ;https://www.autohotkey.com/docs/commands/Reload.htm
-!+r::
-try
-{
-    Reload
-    Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
-    MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
-    IfMsgBox, Yes, Edit
-    return
-}
-catch e  ; Handles the first error/exception raised by the block above.
-{
-    MsgBox, An exception was thrown!`nSpecifically: %e%
-    Exit
-}
 
-
-
+;Timed ToolTip`nThis will be displayed for 1 seconds.
+#include modular\loadTooltip.ahk
+#include modular\reloadScript.ahk
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
 #include modular\pShellAtCurrent.ahk
@@ -62,10 +49,17 @@ catch e  ; Handles the first error/exception raised by the block above.
 
 #include modular\volumePageUpdown.ahk
 #include modular\pasteAsFile.ahk
+
+
+!+r::reloadScript()
+
+
 ;Module: paset as file
-;^+v::pasteAsFile()
+^+v::pasteAsFile()
 #include modular\temp.ahk
 
+;"vision" 
+!+1::temp()
 
 #include modular\appendClippboard.ahk
 #include modular\ctrlEnterToexecute.ahk
