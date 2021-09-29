@@ -84,9 +84,10 @@ laodToolTip("reloaded")
 ;works (but pastes return into editor...)
 #include modular\volumePageUpdown.ahk
 
+;works
 #include modular\ctrlEnterToexecute.ahk
 #ifwinactive, ahk_exe powershell_ise.exe
-    RControl & Enter::sendF5()
+    ^Enter::sendF5()
 #if
 
 
