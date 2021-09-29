@@ -43,7 +43,8 @@ WM_COMMAND(wParam)
 #include modular\volumePageUpdown.ahk
 #include modular\pasteAsFile.ahk
 ;Module: paset as file
-^+v::pasteAsFile()
+;^+v::pasteAsFile()
+#include modular\temp.ahk
 
 
 #include modular\appendClippboard.ahk
