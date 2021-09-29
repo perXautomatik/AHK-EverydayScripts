@@ -7,7 +7,7 @@ OnMessage(0x111, "WM_COMMAND")
 
 customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
 
-;doesn'tWork (it does open the folder of ahk script but doesn't open vscode)
+;doesn'tWork (customEditorPath is empty)
 WM_COMMAND(wParam)
 {
     if (wParam = 65401 ; ID_FILE_EDITSCRIPT
