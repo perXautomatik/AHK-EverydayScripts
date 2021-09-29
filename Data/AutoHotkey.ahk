@@ -6,7 +6,7 @@ OnMessage(0x111, "WM_COMMAND")
 
 customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
 
-
+;doesn'tWork
 WM_COMMAND(wParam)
 {
     if (wParam = 65401 ; ID_FILE_EDITSCRIPT
@@ -48,23 +48,25 @@ WM_COMMAND(wParam)
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
 
-
-#include modular\SnipPrinting.ahk
+;works
+#include modular\SnipPrinting.ahk 
+;works (but pastes return into editor...)
 #include modular\volumePageUpdown.ahk
 
-
+;doesn'tWork
 #include modular\loadTooltip.ahk
 laodToolTip("reloaded")
 
+;works
 #include modular\reloadScript.ahk
 !+r::reloadScript()
 
-
+;works
 #include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
 
 
-
+;doesn'tWork
 #include modular\temp.ahk
 !+1::temp()
 
