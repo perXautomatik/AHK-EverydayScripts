@@ -16,7 +16,7 @@ try{
    Clipboard := %topclip%`r`n%appendclip%    ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
    topclip := ""   ; Free the memory in case the clipboard was very large.
    appendclip := ""
-return
+exit
 
 }
  catch e  ; Handles the first error/exception raised by the block above.

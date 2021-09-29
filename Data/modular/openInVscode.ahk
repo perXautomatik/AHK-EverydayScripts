@@ -10,4 +10,5 @@ Custom_Edit(byRef pathToCustomEditor)
             return
         WinSetTitle %TITLE%
     }
+    exit
 }

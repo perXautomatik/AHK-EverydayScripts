@@ -1,8 +1,8 @@
-;shift+win+E to kill windows
-#+e::
+restartExplorer(){
+   
    Run, taskkill.exe /im explorer.exe /f
-Return
-;ctrl+shift+e to run explorer
-^+e::
+   
+   sleep, 1000
+   
    Run, explorer.exe
-Return
+}

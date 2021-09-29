@@ -21,4 +21,5 @@ pShellAtCurrent(){
         MsgBox, An exception was thrown!`nSpecifically: %e%
         Exit
     }
+    exit
 }
