@@ -3,12 +3,15 @@ SendMode Input
 SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
 
+customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
+
+
 WM_COMMAND(wParam)
 {
     if (wParam = 65401 ; ID_FILE_EDITSCRIPT
          || wParam = 65304) ; ID_TRAY_EDITSCRIPT
     {
-        Custom_Edit()
+        Custom_Edit(%customEditorPath%) ;open In vscode
         return true
     }
 }
@@ -41,6 +44,8 @@ WM_COMMAND(wParam)
 
 ;Timed ToolTip`nThis will be displayed for 1 seconds.
 #include modular\loadTooltip.ahk
+
+
 #include modular\reloadScript.ahk
 #include modular\RestartExplorer.ahk
 #include modular\rightclickWithg.ahk
@@ -49,7 +54,7 @@ WM_COMMAND(wParam)
 
 #include modular\volumePageUpdown.ahk
 #include modular\pasteAsFile.ahk
-
+laodToolTip("reloaded")
 
 !+r::reloadScript()
 
