@@ -1,6 +1,12 @@
 temp()
     {
-        SendInput `avslutningsinitiativ sommaren 2021` ;paste "Avslutningsinitiativ sommaren 2021"
+
+        Var := "
+(
+avslutningsinitiativ sommaren 2021
+)"
+
+        SendInput %var% ;paste "Avslutningsinitiativ sommaren 2021"
         Sleep 1000
         ;säker på att du vill ändra ett avslutat ärende
         SendInput, {enter}
