@@ -97,7 +97,7 @@ laodToolTip("reloaded")
 
 
 
-;doesn'tWork (it's called but it doesn't paste the text expected)
+;Work, could be reused as paste variable content
 #include modular\temp.ahk
 !+1::temp()
 
