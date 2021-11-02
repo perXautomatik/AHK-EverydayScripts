@@ -84,7 +84,7 @@ laodToolTip("reloaded")
 ;works
 #include modular\ctrlEnterToexecute.ahk
 #ifwinactive, ahk_exe powershell_ise.exe
-    ^Enter::sendF5()
+    ^Enter::sendF8()
 #ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
     ^Enter::sendF5()
 #if
@@ -106,7 +106,7 @@ laodToolTip("reloaded")
 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
-^w::appendClipboard()
+!+w::appendClipboard()
 
 
 
