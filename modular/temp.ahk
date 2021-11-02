@@ -1,12 +1,12 @@
 temp()
     {
 
-        Var := "
-(
-avslutningsinitiativ sommaren 2021
-)"
+        var := "avslutningsinitiativ"
+        var2 := " sommaren 2021"
+        var3 = % var var2
 
-        SendInput %var% ;paste "Avslutningsinitiativ sommaren 2021"
+        laodToolTip(var3)
+        SendInput %var3% ;paste "Avslutningsinitiativ sommaren 2021"
         Sleep 1000
         ;säker på att du vill ändra ett avslutat ärende
         SendInput, {enter}
