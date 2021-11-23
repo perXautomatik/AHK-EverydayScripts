@@ -1,5 +1,13 @@
-;Module: paset as file
-^#v::
+#include modular\getExtension.ahk
+
+;^-- auto-execute section "toprow"----------------------------------------------------------------
+
+;v-- method implementations ---------------------------------------------------------------
+
+#include modular\activeExplorerPath.ahk
+#include modular\afp.ahk
+
+pasteAsFile(){
     InputBox,  filename, Clipboard to file, Enter a file name,,300,130
     if ErrorLevel
         return
@@ -39,3 +47,4 @@
     return
 return
 
+}
