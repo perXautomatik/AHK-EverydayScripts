@@ -4,7 +4,7 @@ SetTitleMatchMode 2
 
 Run %A_ScriptDir%\AutoHotkeyPortable.exe
 sleep 1000
-   IfWinExist,Warning:
+IfWinExist,Warning:
 {
 	WinActivate,Warning
         Send,{Enter}
