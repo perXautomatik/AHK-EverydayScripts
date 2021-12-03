@@ -1,7 +1,12 @@
 #SingleInstance, Force
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
+
+ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
+
+
+
 SendMode Input
-SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
 #include modular\openInVscode.ahk
 
@@ -17,8 +22,6 @@ WM_COMMAND(wParam)
         return true
     }
 }
-
-
 
 
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
@@ -46,6 +49,13 @@ WM_COMMAND(wParam)
 laodToolTip("reloaded")
 
 
+#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
+CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
+
+
+#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+!+p::toForeground("Ditto") ;not working
+
 ;Replaces the currently running instance of the script with a new one.
 ;https://www.autohotkey.com/docs/commands/Reload.htm
 ;works
@@ -54,7 +64,7 @@ laodToolTip("reloaded")
 
 ;doesn't work
 #include modular\pShellAtCurrent.ahk
-#p::pShellAtCurrent()
+#t::pShellAtCurrent()
 
 
 
@@ -95,6 +105,12 @@ laodToolTip("reloaded")
         ^s::SavingReloadsAhkWindow()
 #if
 
+;not working, better use custom settings in program
+#include modular\altShiftEnter.ahk 
+#ifwinactive, ahk_exe datagrip64.exe
+    !F2::sendAltShiftEnter() 
+#if
+
 
 
 ;Work, could be reused as paste variable content
@@ -108,8 +124,8 @@ laodToolTip("reloaded")
 #include modular\appendClippboard.ahk
 !+w::appendClipboard()
 
-
-
+#include modular\pushEnterUntil.ahk
+!+Enter::pushEnterUntil()
 
 
 #include modular\altTab.ahk
