@@ -8,6 +8,7 @@ ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
 
 SendMode Input
 OnMessage(0x111, "WM_COMMAND")
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
 #include modular\openInVscode.ahk
 
 customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
