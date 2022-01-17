@@ -7,3 +7,6 @@
 [submodule "Fork/CheckIfProgIsRunning"]
 	path = Fork/CheckIfProgIsRunning
 	url = C:/Users/crbk01/Desktop/lib-repo/Data/Fork/CheckIfProgIsRunning/.git
+[submodule "Fork/MACRO RECORDER"]
+	path = Fork/MACRO RECORDER
+	url = https://github.com/perXautomatik/AHK_SCRIPTS.git
