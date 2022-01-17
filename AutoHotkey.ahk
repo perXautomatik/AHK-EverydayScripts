@@ -1,107 +1,146 @@
-; IMPORTANT INFO ABOUT GETTING STARTED: Lines that start with a
-; semicolon, such as this one, are comments.  They are not executed.
+#SingleInstance, Force
+#Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
 
-; This script has a special filename and path because it is automatically
-; launched when you run the program directly.  Also, any text file whose
-; name ends in .ahk is associated with the program, which means that it
-; can be launched simply by double-clicking it.  You can have as many .ahk
-; files as you want, located in any folder.  You can also run more than
-; one .ahk file simultaneously and each will get its own tray icon.
-
-^!n::
-IfWinExist Untitled - Notepad
-	WinActivate
-else
-	Run Notepad
-return
+ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
 
 
-; Note: From now on whenever you run AutoHotkey directly, this script
-; will be loaded.  So feel free to customize it to suit your needs.
 
-; Please read the QUICK-START TUTORIAL near the top of the help file.
-; It explains how to perform common automation tasks such as sending
-; keystrokes and mouse clicks.  It also explains more about hotkeys.
+SendMode Input
+OnMessage(0x111, "WM_COMMAND")
+#include modular\openInVscode.ahk
 
-#PgUp::Send {Volume_Up 1}
-#PgDn::Send {Volume_Down 1}
+customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
 
-PrintScreen:: ;runs snipping tool 
-;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
-
+;doesn'tWork (customEditorPath is empty)
+WM_COMMAND(wParam)
 {
-	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
-	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-		{	
-			WinRestore
-			Send, ^n
-		}
-		else if WinActive()
-			WinMinimize
-		else
-		{
-			WinActivate
-			Send, ^n
-		}
-	}
-	else if WinExist("ahk_class Microsoft-Windows-.*SnipperEditor")
-	{
-		WinGet, State, MinMax
-		if (State = -1)
-			WinRestore
-		else if WinActive()
-			WinMinimize
-		else
-			WinActivate
-	}
-	else
-	{
-		Run, snippingtool.exe
-		if (SubStr(A_OSVersion,1,2)=10)
-		{
-			WinWait, ahk_class Microsoft-Windows-.*SnipperToolbar,,3
-			Send, ^n
-		}
-	}
-	SetTitleMatchMode, %Setting_A_TitleMatchMode%
-	return
+    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
+         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
+    {
+        Custom_Edit(%customEditorPath%) ;open In vscode
+        return true
+    }
 }
 
-#IfWinActive ahk_class POEWindowClass
-	�::
-	Send {enter} /exit {enter}
-return
+
+;^-- auto-execute section "toprow"----------------------------------------------------------------
+;v-- method implementations ---------------------------------------------------------------
+
+#include modular\getExtension.ahk
+#include modular\activeExplorerPath.ahk
+#include modular\afp.ahk
+
+;MethodCalls;-------------------------------------------------------------------------------
 
 
-#IfWinActive, MTGA
-Space::
-while not(GetKeyState("LButton"))
-{
-	IfWinActive, MTGA
-	{
-		SendInput {Space}
-		SendInput {Click}
-		Sleep, 1000
-	}
-}           
+;#	Win (Windows logo key
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
 
 
-;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
+;Timed ToolTip`nThis will be displayed for 1 seconds.
+;works
+#include modular\loadTooltip.ahk
+laodToolTip("reloaded")
 
-<#t::
-if WinActive("ahk_class CabinetWClass") 
-or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
-}
-else
-{
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
-}
-return
+
+#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
+CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
+
+
+#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+!+p::toForeground("Ditto") ;not working
+
+;Replaces the currently running instance of the script with a new one.
+;https://www.autohotkey.com/docs/commands/Reload.htm
+;works
+#include modular\reloadScript.ahk
+!+r::reloadScript()
+
+;doesn't work
+#include modular\pShellAtCurrent.ahk
+#t::pShellAtCurrent()
+
+
+
+;works
+#include modular\RestartExplorer.ahk
+;shift+win+E to restart explorer
+#+e::restartExplorer()
+
+;works
+#include modular\rightclickWithg.ahk
+^g::sendRightClick()
+
+;works
+#include modular\SnipPrinting.ahk 
+
+
+;works
+#include modular\pasteAsFile.ahk
+^+v::pasteAsFile()
+
+
+
+
+;works
+#include modular\volumePageUpdown.ahk
+
+;works
+#include modular\ctrlEnterToexecute.ahk
+#ifwinactive, ahk_exe powershell_ise.exe
+    ^Enter::sendF8()
+#ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
+    ^Enter::sendF5()
+#if
+
+;works
+#Include modular\SavingReloades.ahk
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+        ^s::SavingReloadsAhkWindow()
+#if
+
+;not working, better use custom settings in program
+#include modular\altShiftEnter.ahk 
+#ifwinactive, ahk_exe datagrip64.exe
+    !F2::sendAltShiftEnter() 
+#if
+
+
+
+;Work, could be reused as paste variable content
+#include modular\temp.ahk
+!+1::temp()
+
+
+;unsure/irrelevant
+
+;does not work, but atleast prompts error
+#include modular\appendClippboard.ahk
+!+w::appendClipboard()
+
+#include modular\pushEnterUntil.ahk
+!+Enter::pushEnterUntil()
+
+
+#include modular\altTab.ahk
+#include modular\refreshAhkWindow.ahk
+
+
+
+#include modular\ExitPoe.ahk
+
+
+;todo show current N clipboardContents from ditto or otherwise, 
+;   alt+q
+; solution?: check out - [ClipBoardMonitor](https://github.com/536/my-startup-ahk-scripts/blob/master/startup/ClipBoardMonitor/ClipBoardMonitor.ahk) - Monitor clipboard changes, show tooltip of word count for text or a temporary GUI for pictures.
+;todo paste clipboard at N
+;   alt+f...N
+
+
+ExitApp
