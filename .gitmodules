@@ -22,3 +22,6 @@
 [submodule "Fork/GetRunningProcess"]
 	path = Fork/GetRunningProcess
 	url = https://gist.github.com/perXautomatik/da216c7be073639376a2df9163eabd26
+[submodule "Fork/MacroRecorder"]
+	path = Fork/MacroRecorder
+	url = https://github.com/perXautomatik/AHK_SCRIPTS.git
