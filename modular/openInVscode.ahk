@@ -1,25 +1,14 @@
 ;open In vscode
 Custom_Edit(byRef pathToCustomEditor)
 {
-    If pathToCustomEditor is not space
+    static TITLE := "AhkPad - " A_ScriptFullPath
+    if !WinExist(TITLE)
     {
-
-    try {
-            static TITLE := "AhkPad - " A_ScriptFullPath
-            if !WinExist(TITLE)
-            {
-                Run "'%pathToCustomEditor%' '%A_ScriptFullPath%'",,,pid
-                WinWait ahk_pid %pid%,, 2
-                if ErrorLevel
-                    return
-                WinSetTitle %TITLE%
-            }
-            exit
-    } catch e {
-        MsgBox, An exception was thrown!`nSpecifically: %e%
-        Exit
+        Run "%pathToCustomEditor%" "%A_ScriptFullPath%",,, pid
+        WinWait ahk_pid %pid%,, 2
+        if ErrorLevel
+            return
+        WinSetTitle %TITLE%
     }
-    }
-    Else
-        MsgBox, empty
+    exit
 }
