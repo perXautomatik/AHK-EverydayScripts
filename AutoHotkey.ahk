@@ -1,4 +1,18 @@
 OnMessage(0x111, "WM_COMMAND")
+#SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
+
+WM_COMMAND(wParam)
+{
+    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
+         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
+    {
+        Custom_Edit()
+        return true
+    }
+}
+OnMessage(0x111, "WM_COMMAND")
 
 WM_COMMAND(wParam)
 {
@@ -25,6 +39,7 @@ Custom_Edit()
 }
 
 ;^-- auto-execute section "toprow"
+;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
 ;#	Win (Windows logo key
 ;!	Alt
 ;^	Control
@@ -64,6 +79,27 @@ return
 ;do stuff dostuff: send click, right, down Return
 ;new method
 
+^g::
+Send, {Rbutton}
+
+
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
+
+RControl & Enter::
+	IfWinActive ahk_exe powershell_ise.exe
+		SendInput {F5}
+return
+
+;shift+win+E to kill windows
+#+e::
+   Run, taskkill.exe /im explorer.exe /f
+Return
+;ctrl+shift+e to run explorer
+^+e::
+   Run, explorer.exe
+Return
+;rightclick with ctrl+G
 ^g::
 Send, {Rbutton}
 
