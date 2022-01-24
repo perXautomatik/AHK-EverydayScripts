@@ -1,6 +1,6 @@
 [submodule "Fork/WindowToforeground"]
 	path = Fork/WindowToforeground
-	url = C:/Users/crbk01/Desktop/lib-repo/Data/Fork/WindowToforeground/.git
+	url = https://gist.github.com/perXautomatik/2afabd6ac497820f9fa4b0e0f0e2fcfb
 [submodule "Fork/GetRunningProcess"]
 	path = Fork/GetRunningProcess
 	url = C:/Users/crbk01/Desktop/lib-repo/Data/Fork/GetRunningProcess/.git
