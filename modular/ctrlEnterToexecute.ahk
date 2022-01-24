@@ -4,9 +4,3 @@ sendF5()
 		SendInput {F5}
 	exit
 }
-sendF8()
-{
-	laodToolTip("inside")
-		SendInput {F8}
-	exit
-}
