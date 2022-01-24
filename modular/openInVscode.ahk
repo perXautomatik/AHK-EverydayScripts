@@ -1,6 +1,9 @@
 ;open In vscode
 Custom_Edit(byRef pathToCustomEditor)
 {
+    {
+
+    try {
     static TITLE := "AhkPad - " A_ScriptFullPath
     if !WinExist(TITLE)
     {
@@ -11,4 +14,9 @@ Custom_Edit(byRef pathToCustomEditor)
         WinSetTitle %TITLE%
     }
     exit
+    } catch e {
+        MsgBox, An exception was thrown!`nSpecifically: %e%
+        Exit
+    }
+    }
 }
