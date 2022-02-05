@@ -84,7 +84,7 @@ laodToolTip("reloaded")
 ;works
 #include modular\ctrlEnterToexecute.ahk
 #ifwinactive, ahk_exe powershell_ise.exe
-    ^Enter::sendF8()
+    ^Enter::sendF5()
 #ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
     ^Enter::sendF5()
 #if
@@ -106,7 +106,7 @@ laodToolTip("reloaded")
 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
-!+w::appendClipboard()
+^w::appendClipboard()
 
 
 
@@ -122,7 +122,6 @@ laodToolTip("reloaded")
 
 ;todo show current N clipboardContents from ditto or otherwise, 
 ;   alt+q
-; solution?: check out - [ClipBoardMonitor](https://github.com/536/my-startup-ahk-scripts/blob/master/startup/ClipBoardMonitor/ClipBoardMonitor.ahk) - Monitor clipboard changes, show tooltip of word count for text or a temporary GUI for pictures.
 ;todo paste clipboard at N
 ;   alt+f...N
 
