@@ -28,3 +28,6 @@
 [submodule "Fork/Selected Item In Explorer"]
 	path = Fork/Selected Item In Explorer
 	url = https://gist.github.com/perXautomatik/6537e14a930ee339958936292f766ced
+[submodule "fork/ChangeSkypeStatus"]
+	path = fork/ChangeSkypeStatus
+	url = https://gist.github.com/bc40d01ca80c69488019b7f019368b26
