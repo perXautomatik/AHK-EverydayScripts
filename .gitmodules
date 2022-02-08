@@ -31,3 +31,12 @@
 [submodule "fork/ChangeSkypeStatus"]
 	path = fork/ChangeSkypeStatus
 	url = https://gist.github.com/bc40d01ca80c69488019b7f019368b26
+[submodule "Fork/ExplorerAtPath"]
+	path = Fork/ExplorerAtPath
+	url = https://gist.github.com/4f43492ad280c53f5492fcf90af6c680
+[submodule "Fork/SelectedTextWithoutDisturbingClipboard"]
+	path = Fork/SelectedTextWithoutDisturbingClipboard
+	url = https://gist.github.com/b403c938c0ea3f78ec1d197c3dbf8368
+[submodule "Fork/autoklick"]
+	path = Fork/autoklick
+	url = https://gist.github.com/847ca542e85ef1b450f42bd578fa9b96
