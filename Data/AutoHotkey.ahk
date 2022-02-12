@@ -1,6 +1,80 @@
+#SingleInstance, Force
+SendMode Input
+SetWorkingDir, %A_ScriptDir%
+OnMessage(0x111, "WM_COMMAND")
+
+;open In vscode
+Custom_Edit()
+{
+    static TITLE := "AhkPad - " A_ScriptFullPath
+    if !WinExist(TITLE)
+    {
+        Run  "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
+        WinWait ahk_pid %pid%,, 2
+        if ErrorLevel
+            return
+        WinSetTitle %TITLE%
+    }
+}
+
+;^-- auto-execute section "toprow"----------------------------------------------------------------
+
+;v-- method implementations ---------------------------------------------------------------
+
+;[copy from:Get current explorer window path - AutoHotkey Community when: @https://bit.ly/3spOZt2]
+GetActiveExplorerPath()
+{
+	explorerHwnd := WinActive("ahk_class CabinetWClass")
+	if (explorerHwnd)
+	{
+		for window in ComObjCreate("Shell.Application").Windows
+		{
+			if (window.hwnd==explorerHwnd)
+			{
+				return window.Document.Folder.Self.Path
+			}
+		}
+	}
+}
 
 
-;^-- auto-execute section "toprow"
+GetExtension(vpath) {
+return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
+}
+
+; based on ActiveFolderPath() by Scoox https://autohotkey.com/board/topic/70960-detect-current-windows-explorer-location/
+AFP(WinTitle="A")
+{
+    WinGetClass, Class, %WinTitle%
+    If (Class ~= "Program|WorkerW") ;desktop
+    {
+        WinPath := A_Desktop
+    }
+    Else ;all other windows
+    {
+        WinGetText, WinPath, A
+        RegExMatch(WinPath, ".:\\.*", WinPath)
+        for w in ComObjCreate("Shell.Application").Windows    ; grab the folder path
+        {
+            aac = % w.Document.Folder.Self.Path
+            if (WinPath=aac) {
+                valid:=1
+                break
+            }
+        }   
+    }
+ if !valid
+    return
+    WinPath := RegExReplace(WinPath, "\\+$") 
+    If WinPath 
+        WinPath .= "\"
+    Return WinPath
+}
+
+
+;MethodCalls;-------------------------------------------------------------------------------
+
+
 ;#	Win (Windows logo key
 ;!	Alt
 ;^	Control
@@ -8,6 +82,120 @@
 ;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
+
+#SingleInstance force
+;Module: paset as file
+^#v::
+    InputBox,  filename, Clipboard to file, Enter a file name,,300,130
+    if ErrorLevel
+        return
+    if !(filename) {
+        filename:=A_Year "_" A_MM "_" A_DD "~" A_Hour . A_Min . A_Sec  
+    }
+    fext:=GetExtension(filename)
+    ; get current explorer path
+    afp:=AFP()
+
+    If (FileExist(Afp . filename) && (fext)) {
+        msgbox ,33,file, File already exists. Overwrite?
+        IfMsgBox, Cancel
+        Return  
+            IfMsgBox, OK 
+            {  
+                FileDelete, % afp . filename
+                sleep, 200
+            }
+    }
+
+    If (FileExist(Afp . filename . ".txt") && !(fext) ) {
+        msgbox ,33,file,  File already exists. Overwrite?
+        IfMsgBox, Cancel
+        Return  
+            IfMsgBox, OK 
+            {  
+                FileDelete, % afp . filename . ".txt"
+                sleep, 200
+            }
+    }
+
+    if (fext) && (filename)
+        fileappend, % clipboard, % afp . filename
+    else
+        fileappend, % clipboard, % afp . filename . ".txt"
+    return
+return
+
+;tried all sorts of ways to control the alt key but seems like the contrl key is not logicaly in downstate due to remote control
+  ^TAB::
+  send {ALT down}{TAB}
+	sleep 2000
+	send {ALT up}	
+return
+
+
+SetTitleMatchMode, 1 ; match titles begining with specified string
+
+
+#ifwinactive, C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk - AutoHotkey
+{
+    ^ENTER::
+    send {F5}
+    return
+}
+
+
+;Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
+^w::                 
+	;transform ,topclip,unicode Deprecated: This command is not recommended for use in new scripts. For details on what you can use instead, see the sub-command sections below.
+
+   topclip := ClipboardAll   ; Save the entire clipboard to a variable of your choice. ; ... here make temporary use of the clipboard, such as for pasting Unicode text via Transform Unicode ...   
+   clipboard =  ;clear clipboard so you can use clipwait 
+   send ^c 
+   clipwait   ;erratic results without this 
+   appendclip := ClipboardAll
+   Clipboard := %topclip%`r`n%appendclip%    ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
+   topclip := ""   ; Free the memory in case the clipboard was very large.
+   appendclip := ""
+return
+
+
+
+RControl & Enter::
+	IfWinActive ahk_exe powershell_ise.exe
+		SendInput {F5}
+return
+
+;shift+win+E to kill windows
+#+e::
+   Run, taskkill.exe /im explorer.exe /f
+Return
+;ctrl+shift+e to run explorer
+^+e::
+   Run, explorer.exe
+Return
+;rightclick with ctrl+G
+^g::
+Send, {Rbutton}
+
+
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
+
+
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+{
+^s::
+    send, {ctrl down}s{ctrl up}
+    tooltip,macro is diabled, % a_screenwidth/2, % a_screenheight/2
+    SetTimer, RemoveToolTip, 3000
+    sleep 100
+    reload, "C:\Users\crbk01\Desktop\OnGithub\AutoHotkeyPortable\Data\AutoHotkey.ahk"
+
+
+    RemoveToolTip:
+    tooltip
+    return
+}
 
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
@@ -54,22 +242,9 @@ PrintScreen:: ;runs snipping tool
 }
 
 #IfWinActive ahk_class POEWindowClass
-	
+	�::
 	Send {enter} /exit {enter}
 return
-
-
-#IfWinActive, MTGA
-Space::
-while not(GetKeyState("LButton"))
-{
-	IfWinActive, MTGA
-	{
-		SendInput {enter}
-		SendInput {Click}
-		Sleep, 1000
-	}
-}           
 
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
@@ -77,16 +252,16 @@ while not(GetKeyState("LButton"))
 <#t::
 if WinActive("ahk_class CabinetWClass") 
 or WinActive("ahk_class ExploreWClass")
-{
-  Send {Shift Down}{AppsKey}{Shift Up}
-  Sleep 10
-  Send w{enter}
-}
-else
-{
-  EnvGet, SystemRoot, SystemRoot
-  Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
-}
+    {
+    Send {Shift Down}{AppsKey}{Shift Up}
+    Sleep 10
+    Send {enter}
+    }
+    else
+    {
+    EnvGet, SystemRoot, SystemRoot
+    Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+    }
 return
 ~|::
 {
