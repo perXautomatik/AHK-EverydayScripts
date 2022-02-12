@@ -17,6 +17,31 @@ Custom_Edit()
     }
 }
 
+WM_COMMAND(wParam)
+{
+    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
+         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
+    {
+        Custom_Edit()
+        return true
+    }
+}
+
+Custom_Edit()
+{
+    static TITLE := "AhkPad - " A_ScriptFullPath
+    if !WinExist(TITLE)
+    {
+        Run  "E:\Program Files\Microsoft VS Code\Code.exe" "%A_ScriptFullPath%",,, pid
+        WinWait ahk_pid %pid%,, 2
+        if ErrorLevel
+            return
+        WinSetTitle %TITLE%
+    }
+    WinActivate
+}
+
+;^-- auto-execute section "toprow"
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 
 ;v-- method implementations ---------------------------------------------------------------
@@ -75,6 +100,7 @@ AFP(WinTitle="A")
 ;MethodCalls;-------------------------------------------------------------------------------
 
 
+;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
 ;#	Win (Windows logo key
 ;!	Alt
 ;^	Control
@@ -82,6 +108,27 @@ AFP(WinTitle="A")
 ;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
 ;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
 ;>	Use the right key of the pair.
+
+RControl & Enter::
+	IfWinActive ahk_exe powershell_ise.exe
+		SendInput {F5}
+return
+
+;shift+win+E to kill windows
+#+e::
+   Run, taskkill.exe /im explorer.exe /f
+Return
+;ctrl+shift+e to run explorer
+^+e::
+   Run, explorer.exe
+Return
+;rightclick with ctrl+G
+^g::
+Send, {Rbutton}
+
+
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
 
 #SingleInstance force
 ;Module: paset as file
@@ -199,7 +246,6 @@ Send, {Rbutton}
 
 PrintScreen:: ;runs snipping tool 
 ;will start Snipping if Snipping Tool is not open. If Snipping is already open and active it will Minimize. If Minimized it will Restore. If Snipping is open but not ;active it will Activate.
-
 {
 	SetTitleMatchMode, % (Setting_A_TitleMatchMode := A_TitleMatchMode) ? "RegEx" :
 	if WinExist("ahk_class Microsoft-Windows-.*SnipperToolbar")
@@ -241,8 +287,9 @@ PrintScreen:: ;runs snipping tool
 	return
 }
 
+;works 2021-03-05  
 #IfWinActive ahk_class POEWindowClass
-	�::
+	?::
 	Send {enter} /exit {enter}
 return
 
@@ -263,59 +310,5 @@ or WinActive("ahk_class ExploreWClass")
     Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
     }
 return
-~|::
-{
-Send, {CtrlDown}{AltDown}{Tab}
-Send, {CtrlUp}{AltUp}
-return
-}
-
-
-#IfWinActive ahk_class vguiPopupWindow
-{
-	1::
-	Send {LButton} 10 {enter}
-	return
-	
-	2::
-	Send {LButton} 100 {enter}
-	return
-
-	3::
-	Send {LButton} 500 {enter}
-	return
-
-	4::
-	Send {LButton} 900 {enter}
-	return
-}
-
-^!n::
-IfWinExist Untitled - Notepad
-	WinActivate
-else
-	Run Notepad
-return
-
-;old method !g:: if (dostuff != off) { SetTimer, dostuff, 10 return } else { settimer, dostuff, off return }
-;do stuff dostuff: send click, right, down Return
-;new method
-
-^g::
-{
-Send, {Rbutton}
-return
-}
-
-#PgUp::
-{
-	Send {Volume_Up 1} 
-	return
-}
-#PgDn::
-{
-	Send {Volume_Down 1} 
-	return
-}
 
 
