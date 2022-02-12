@@ -33,6 +33,7 @@ else
 return
 
 
+<<<<<<< HEAD
 ; Note: From now on whenever you run AutoHotkey directly, this script
 ; will be loaded.  So feel free to customize it to suit your needs.
 
@@ -320,6 +321,9 @@ while not(GetKeyState("LButton"))
 }
 
 
+=======
+
+>>>>>>> HomeMain
 ;Url: https://autohotkey.com/board/topic/27074-append-to-clipboard-with-control-g-g-glue/
 ^w::                 
 	;transform ,topclip,unicode Deprecated: This command is not recommended for use in new scripts. For details on what you can use instead, see the sub-command sections below.
@@ -332,6 +336,7 @@ while not(GetKeyState("LButton"))
    Clipboard := %topclip%`r`n%appendclip%    ; Restore the original clipboard. Note the use of Clipboard (not ClipboardAll).
    topclip := ""   ; Free the memory in case the clipboard was very large.
    appendclip := ""
+<<<<<<< HEAD
 ^!n::
 IfWinExist Untitled - Notepad
 	WinActivate
@@ -339,6 +344,9 @@ else
 	Run Notepad
 return
 
+=======
+return
+>>>>>>> HomeMain
 
 
 RControl & Enter::
