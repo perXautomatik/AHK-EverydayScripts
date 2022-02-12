@@ -44,60 +44,48 @@ Custom_Edit()
 ;^-- auto-execute section "toprow"
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 
+
+#IfWinActive ahk_class vguiPopupWindow
 ;v-- method implementations ---------------------------------------------------------------
 
 ;[copy from:Get current explorer window path - AutoHotkey Community when: @https://bit.ly/3spOZt2]
 GetActiveExplorerPath()
 {
-	explorerHwnd := WinActive("ahk_class CabinetWClass")
-	if (explorerHwnd)
-	{
-		for window in ComObjCreate("Shell.Application").Windows
-		{
-			if (window.hwnd==explorerHwnd)
-			{
-				return window.Document.Folder.Self.Path
-			}
-		}
-	}
+	1::
+	Send {LButton} 10 {enter}
+	return
+	
+	2::
+	Send {LButton} 100 {enter}
+	return
+
+	3::
+	Send {LButton} 500 {enter}
+	return
+
+	4::
+	Send {LButton} 900 {enter}
+	return
 }
 
+^!n::
+IfWinExist Untitled - Notepad
+	WinActivate
+else
+	Run Notepad
+return
 
-GetExtension(vpath) {
-return  RegExReplace(vPath, "^.*?((\.(?!.*\\)(?!.*\.))|$)")  
-}
+;old method !g:: if (dostuff != off) { SetTimer, dostuff, 10 return } else { settimer, dostuff, off return }
+;do stuff dostuff: send click, right, down Return
+;new method
 
-; based on ActiveFolderPath() by Scoox https://autohotkey.com/board/topic/70960-detect-current-windows-explorer-location/
-AFP(WinTitle="A")
-{
-    WinGetClass, Class, %WinTitle%
-    If (Class ~= "Program|WorkerW") ;desktop
-    {
-        WinPath := A_Desktop
-    }
-    Else ;all other windows
-    {
-        WinGetText, WinPath, A
-        RegExMatch(WinPath, ".:\\.*", WinPath)
-        for w in ComObjCreate("Shell.Application").Windows    ; grab the folder path
-        {
-            aac = % w.Document.Folder.Self.Path
-            if (WinPath=aac) {
-                valid:=1
-                break
-            }
-        }   
-    }
- if !valid
-    return
-    WinPath := RegExReplace(WinPath, "\\+$") 
-    If WinPath 
-        WinPath .= "\"
-    Return WinPath
-}
+^g::
+Send, {Rbutton}
 
 
 ;MethodCalls;-------------------------------------------------------------------------------
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
 
 
 ;You can define a custom combination of two keys (except joystick buttons) by using " & " between them.
@@ -293,6 +281,7 @@ PrintScreen:: ;runs snipping tool
 	Send {enter} /exit {enter}
 return
 
+; #IfWinActive, MTGA ;Space:: *:: while not(GetKeyState("LButton")) { IfWinActive, MTGA { SendInput {f3} } }           
 
 ;lets me open a command prompt at the location I'm open in windows explorer. If the current window is not a explorer window then the prompt opens at the location where the ;script is present. I would like to change this behavior and make it open from C:\
 
