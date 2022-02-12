@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "yatki.vscode-surround"
+        "yatki.vscode-surround",
+        "cweijan.vscode-autohotkey-plus",
+        "mark-wiemer.vscode-autohotkey-plus-plus",
+        "helsmy.ahk-simple-ls"
     ]
 }
