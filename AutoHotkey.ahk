@@ -19,8 +19,6 @@ WM_COMMAND(wParam)
 }
 
 
-
-
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 ;v-- method implementations ---------------------------------------------------------------
 
@@ -52,11 +50,6 @@ laodToolTip("reloaded")
 #include modular\reloadScript.ahk
 !+r::reloadScript()
 
-;doesn't work
-#include modular\pShellAtCurrent.ahk
-#p::pShellAtCurrent()
-
-
 
 ;works
 #include modular\RestartExplorer.ahk
@@ -74,9 +67,6 @@ laodToolTip("reloaded")
 ;works
 #include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
-
-
-
 
 ;works
 #include modular\volumePageUpdown.ahk
@@ -97,9 +87,10 @@ laodToolTip("reloaded")
 
 
 
-;doesn'tWork (it's called but it doesn't paste the text expected)
-#include modular\temp.ahk
-!+1::temp()
+
+#Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
+
+
 
 
 ;unsure/irrelevant
@@ -108,6 +99,15 @@ laodToolTip("reloaded")
 #include modular\appendClippboard.ahk
 ^w::appendClipboard()
 
+
+
+;doesn'tWork (it's called but it doesn't paste the text expected)
+#include modular\temp.ahk
+!+1::temp()
+
+;doesn't work
+;#include modular\pShellAtCurrent.ahk
+;#p::pShellAtCurrent()
 
 
 
