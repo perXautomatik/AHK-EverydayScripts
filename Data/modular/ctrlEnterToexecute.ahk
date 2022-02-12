@@ -1,5 +1,6 @@
-
-RControl & Enter::
-	IfWinActive ahk_exe powershell_ise.exe
+sendF5()
+{
+	laodToolTip("inside")
 		SendInput {F5}
-return
+	exit
+}

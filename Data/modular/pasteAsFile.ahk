@@ -47,4 +47,6 @@ pasteAsFile(){
     return
 return
 
+exit
+
 }

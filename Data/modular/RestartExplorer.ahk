@@ -1,8 +1,18 @@
-;shift+win+E to kill windows
-#+e::
-   Run, taskkill.exe /im explorer.exe /f
-Return
-;ctrl+shift+e to run explorer
-^+e::
-   Run, explorer.exe
-Return
+restartExplorer(){
+   try {
+      
+      Run, taskkill.exe /im explorer.exe /f
+      
+   } catch  {
+         MsgBox, An exception was thrown!`nSpecifically: %e%
+      Exit
+   }
+   sleep, 1000
+   try {
+      
+      Run, explorer.exe
+   } catch  {
+      MsgBox, An exception was thrown!`nSpecifically: %e%
+      Exit
+   }
+}

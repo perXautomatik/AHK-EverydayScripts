@@ -1,3 +1,6 @@
 ;rightclick with ctrl+G
-^g::
-Send, {Rbutton}
+sendRightClick()
+{
+    Send, {Rbutton}
+    exit
+}

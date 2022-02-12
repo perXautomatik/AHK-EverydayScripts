@@ -39,5 +39,6 @@ PrintScreen:: ;runs snipping tool
 		}
 	}
 	SetTitleMatchMode, %Setting_A_TitleMatchMode%
-	return
+	
+	exit
 }
