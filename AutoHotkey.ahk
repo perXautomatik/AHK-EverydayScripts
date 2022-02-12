@@ -1,5 +1,9 @@
 #SingleInstance, Force
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
+
+ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
+
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
@@ -43,6 +47,12 @@ WM_COMMAND(wParam)
 #include modular\loadTooltip.ahk
 laodToolTip("reloaded")
 
+#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
+CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
+
+
+#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+!+p::toForeground("Ditto") ;not working
 
 ;Replaces the currently running instance of the script with a new one.
 ;https://www.autohotkey.com/docs/commands/Reload.htm
@@ -87,6 +97,9 @@ laodToolTip("reloaded")
 
 
 
+#ifwinactive, ahk_exe datagrip64.exe
+    !F2::sendAltShiftEnter() 
+#if
 
 #Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
 
@@ -100,6 +113,8 @@ laodToolTip("reloaded")
 !+w::appendClipboard()
 
 
+#include modular\pushEnterUntil.ahk
+!+Enter::pushEnterUntil()
 
 ;doesn'tWork (it's called but it doesn't paste the text expected)
 #include modular\temp.ahk
