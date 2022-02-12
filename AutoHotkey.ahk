@@ -97,7 +97,7 @@ laodToolTip("reloaded")
 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
-^w::appendClipboard()
+!+w::appendClipboard()
 
 
 
