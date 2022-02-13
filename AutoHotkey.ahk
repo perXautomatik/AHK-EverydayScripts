@@ -47,12 +47,6 @@ WM_COMMAND(wParam)
 #include modular\loadTooltip.ahk
 laodToolTip("reloaded")
 
-#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
-CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
-
-
-#include Fork\WindowToforeground\bring-window-to-foreground.ahk
-!+p::toForeground("Ditto") ;not working
 
 ;Replaces the currently running instance of the script with a new one.
 ;https://www.autohotkey.com/docs/commands/Reload.htm
@@ -95,18 +89,28 @@ CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAut
         ^s::SavingReloadsAhkWindow()
 #if
 
-
-
-#ifwinactive, ahk_exe datagrip64.exe
-    !F2::sendAltShiftEnter() 
-#if
-
+;works
 #Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
 
 
 
 
-;unsure/irrelevant
+;-------------------------unsure/irrelevant
+
+
+#ifwinactive, ahk_exe datagrip64.exe
+;    !F2::sendAltShiftEnter() 
+#if
+
+
+#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
+CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
+
+
+#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+;!+p::toForeground("Ditto") ;not working
+
+
 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
