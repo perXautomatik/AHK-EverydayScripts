@@ -7,7 +7,7 @@ Custom_Edit(byRef customEditorPath)
     static TITLE := "AhkPad - " A_ScriptFullPath
     if !WinExist(TITLE)
     {
-        Run "%customEditorPath%" "%A_ScriptFullPath%",,, pid
+        Run "%pathToCustomEditor%" "%A_ScriptFullPath%",,, pid
         WinWait ahk_pid %pid%,, 2
         if ErrorLevel
             return
