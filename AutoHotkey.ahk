@@ -9,7 +9,7 @@ SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
 #include modular\openInVscode.ahk
 
-customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
+customEditorPath := "C:\Users\dator\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 
 ;doesn'tWork (it does open the folder of ahk script but doesn't open vscode)
 WM_COMMAND(wParam)
