@@ -1,5 +1,5 @@
 ;open In vscode
-Custom_Edit(byRef pathToCustomEditor)
+Custom_Edit(byRef customEditorPath)
 {
     {
 

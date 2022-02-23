@@ -1,11 +1,15 @@
 #SingleInstance, Force
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
+
+ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
+
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 OnMessage(0x111, "WM_COMMAND")
 #include modular\openInVscode.ahk
 
-customEditorPath := "C:\Users\crbk01\Documents\Microsoft VS Code\Code.exe"
+customEditorPath := "C:\Users\dator\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 
 ;doesn'tWork (it does open the folder of ahk script but doesn't open vscode)
 WM_COMMAND(wParam)
@@ -17,8 +21,6 @@ WM_COMMAND(wParam)
         return true
     }
 }
-
-
 
 
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
@@ -52,11 +54,6 @@ laodToolTip("reloaded")
 #include modular\reloadScript.ahk
 !+r::reloadScript()
 
-;doesn't work
-#include modular\pShellAtCurrent.ahk
-#p::pShellAtCurrent()
-
-
 
 ;works
 #include modular\RestartExplorer.ahk
@@ -75,9 +72,6 @@ laodToolTip("reloaded")
 #include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
 
-
-
-
 ;works
 #include modular\volumePageUpdown.ahk
 
@@ -95,20 +89,45 @@ laodToolTip("reloaded")
         ^s::SavingReloadsAhkWindow()
 #if
 
+;works
+#Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
 
 
-;doesn'tWork (it's called but it doesn't paste the text expected)
-#include modular\temp.ahk
-!+1::temp()
+
+
+;-------------------------unsure/irrelevant
+
+
+#ifwinactive, ahk_exe datagrip64.exe
+;    !F2::sendAltShiftEnter() 
+#if
+
+
+#include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
+CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
+
+
+#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+;!+p::toForeground("Ditto") ;not working
 
 #include Fork\clipboardbuffer\clipboards-ahk-script.ahk
 
-;unsure/irrelevant
 
 ;does not work, but atleast prompts error
 #include modular\appendClippboard.ahk
 !+w::appendClipboard()
 
+
+#include modular\pushEnterUntil.ahk
+!+Enter::pushEnterUntil()
+
+;doesn'tWork (it's called but it doesn't paste the text expected)
+#include modular\temp.ahk
+!+1::temp()
+
+;doesn't work
+;#include modular\pShellAtCurrent.ahk
+;#p::pShellAtCurrent()
 
 
 
