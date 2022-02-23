@@ -101,6 +101,7 @@ laodToolTip("reloaded")
 #include modular\temp.ahk
 !+1::temp()
 
+#include Fork\clipboardbuffer\clipboards-ahk-script.ahk
 
 ;unsure/irrelevant
 

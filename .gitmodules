@@ -28,3 +28,9 @@
 [submodule "Fork/Selected Item In Explorer"]
 	path = Fork/Selected Item In Explorer
 	url = https://gist.github.com/perXautomatik/6537e14a930ee339958936292f766ced
+[submodule "910aa24fc6068f7f70a5a167e62a640f"]
+	path = 910aa24fc6068f7f70a5a167e62a640f
+	url = https://gist.github.com/910aa24fc6068f7f70a5a167e62a640f
+[submodule "fork/clipboardbuffer"]
+	path = fork/clipboardbuffer
+	url = https://gist.github.com/910aa24fc6068f7f70a5a167e62a640f
