@@ -16,11 +16,8 @@
 
 #SingleInstance force
 
-PrintScreen::AppsKey
-
+#include modular\SnipPrinting.ahk 
 ; Print screen reassigned to Windows Key + PrintScreen
-#PrintScreen::PrintScreen
-
 ;------------------------------------------------------------------------------
 ; COMMONLY USED SYMBOL KEYS
 
@@ -37,6 +34,6 @@ PrintScreen::AppsKey
 
 ; 3 lines omitted
 
-#^R::Reload
-#B::Run, "FireFox"
-#W::Run, "Word"
+;Replaces the currently running instance of the script with a new one.
+#include modular\reloadScript.ahk
+!+r::reloadScript()

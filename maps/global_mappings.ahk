@@ -1,3 +1,6 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; GLOBAL KEYBINDINGS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #SingleInstance, Force
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
 SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
