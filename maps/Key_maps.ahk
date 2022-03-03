@@ -1,39 +1,50 @@
 ; Autohotkey configuration file
 ; AHK Version v1.1.22.06
-; Franklin Chou (franklin.chou@yahoo.com)
-; 20 Nov. 2015
+; Christoffer Brobäck (Christoffer.broback@gmail.com)
+; 03/03/2022
 
 ;------------------------------------------------------------------------------
 ; GLOSSARY OF COMMONLY USED KEY MODIFIERS
 ;
 ; # Windows key
-; ! Alt key
-; ^ Control key
-; + Shift key
-; < Use the Left key of a pair
-; > Use the Right key of a pair
+;!	Alt
+;^	Control
+;+	Shift
+;&	An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See below for details.
+;<	Use the left key of the pair. e.g. <!a is the same as !a except that only the left Alt key will trigger it.
+;>	Use the right key of the pair.
 ;------------------------------------------------------------------------------
 
 #SingleInstance force
 
-#include modular\SnipPrinting.ahk 
-; Print screen reassigned to Windows Key + PrintScreen
+; Print screen Through Windows Snipping tool
+#include modular\SnipPrinting.ahk
+
 ;------------------------------------------------------------------------------
-; COMMONLY USED SYMBOL KEYS
+;window conscious
+#include modular\ctrlEnterToexecute.ahk
+#ifwinactive, ahk_exe powershell_ise.exe
+    ^Enter::sendF8()
+#ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
+    ^Enter::sendF5()
+#if
 
->+P::send ¶
->+S::send §
+#Include modular\SavingReloades.ahk
+#ifwinactive, AutoHotkey.ahk - Anteckningar
+	^s::SavingReloadsAhkWindow()
+#if
+
 ;------------------------------------------------------------------------------
-
-#IfWinActive,, Microsoft Word
-  PgUp::Home
-  PgDn::End
-  <!Up:: Send {PgUp}
-  <!Down:: Send {PgDn}
-#IfWinActive
-
-; 3 lines omitted
-
 ;Replaces the currently running instance of the script with a new one.
 #include modular\reloadScript.ahk
 !+r::reloadScript()
+;------------------------------------------------------------------------------
+;remote Desktop without mouse
+#include modular\rightclickWithg.ahk
+^g::sendRightClick()
+;------------------------------------------------------------------------------
+;media keys
+#include modular\volumePageUpdown.ahk
+;------------------------------------------------------------------------------
+;autoklicker
+#Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
