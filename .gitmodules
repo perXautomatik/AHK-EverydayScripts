@@ -46,3 +46,9 @@
 [submodule "Froks/windowsSnap"]
 	path = Froks/windowsSnap
 	url = https://gist.github.com/1ef708055a11862ca9dc
+[submodule "NonSourceControlledExternal/skrommel/Barnacle"]
+	path = NonSourceControlledExternal/skrommel/Barnacle
+	url = https://gist.github.com/7ad2861463fc78d0c01fd96a874c7365
+[submodule "NonSourceControlledExternal/skrommel/CacheSort"]
+	path = NonSourceControlledExternal/skrommel/CacheSort
+	url = https://gist.github.com/2789e057f6b2104d5de9767729ca1f7a
