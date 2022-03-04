@@ -43,3 +43,6 @@
 [submodule "Fork/autoklick"]
 	path = Fork/autoklick
 	url = https://gist.github.com/847ca542e85ef1b450f42bd578fa9b96
+[submodule "Froks/windowsSnap"]
+	path = Froks/windowsSnap
+	url = https://gist.github.com/1ef708055a11862ca9dc
