@@ -52,3 +52,9 @@
 [submodule "NonSourceControlledExternal/skrommel/CacheSort"]
 	path = NonSourceControlledExternal/skrommel/CacheSort
 	url = https://gist.github.com/2789e057f6b2104d5de9767729ca1f7a
+[submodule "NonSourceControlledExternal/skrommel/ClipStep"]
+	path = NonSourceControlledExternal/skrommel/ClipStep
+	url = https://gist.github.com/4aeb6ba84bb5b216df117296cacab7a8
+[submodule "NonSourceControlledExternal/skrommel/CloseMany"]
+	path = NonSourceControlledExternal/skrommel/CloseMany
+	url = https://gist.github.com/4a27c2f89a6953c60ee218eaddffd54d
