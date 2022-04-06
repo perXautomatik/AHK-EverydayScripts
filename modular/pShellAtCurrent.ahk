@@ -12,7 +12,7 @@ pShellAtCurrent(){
         else
         {
             EnvGet, SystemRoot, SystemRoot
-            Run %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy unrestricted
+            Run C:\Program Files\PowerShell\7\pwsh.exe -WorkingDirectory ~ -ExecutionPolicy unrestricted
         }
     return
     }
