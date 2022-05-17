@@ -1,6 +1,8 @@
+SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
+
 #SingleInstance, Force
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
-SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
+
 
 ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
 
@@ -77,6 +79,8 @@ laodToolTip("reloaded")
 
 ;works
 #include modular\ctrlEnterToexecute.ahk
+#ifwinactive, ahk_exe vscode-portable.exe
+    ^Enter::sendF8()
 #ifwinactive, ahk_exe powershell_ise.exe
     ^Enter::sendF8()
 #ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
@@ -93,6 +97,10 @@ laodToolTip("reloaded")
 #Include Fork\autoklick\auto-clicker-autohotkey-community.ahk
 
 
+; work
+#include modular\pShellAtCurrent.ahk
+#T::pShellAtCurrent()
+
 
 
 ;-------------------------unsure/irrelevant
@@ -106,9 +114,9 @@ laodToolTip("reloaded")
 #include Fork\CheckIfProgIsRunning\continuouslyAndStartIt.ahk
 CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
 
-
-#include Fork\WindowToforeground\bring-window-to-foreground.ahk
-;!+p::toForeground("Ditto") ;not working
+;not working
+;#include Fork\WindowToforeground\bring-window-to-foreground.ahk
+;!+p::toForeground("Ditto")
 
 #include Fork\clipboardbuffer\clipboards-ahk-script.ahk
 
@@ -125,9 +133,6 @@ CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAut
 #include modular\temp.ahk
 !+1::temp()
 
-;doesn't work
-;#include modular\pShellAtCurrent.ahk
-;#p::pShellAtCurrent()
 
 
 
