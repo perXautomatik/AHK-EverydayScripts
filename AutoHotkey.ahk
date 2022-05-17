@@ -83,8 +83,11 @@ laodToolTip("reloaded")
     ^Enter::sendF8()
 #ifwinactive, ahk_exe powershell_ise.exe
     ^Enter::sendF8()
-#ifwinactive, - AutoHotkey ahk_exe AutoHotkey.exe
+#ifwinactive, ahk_exe AutoHotkey.exe
     ^Enter::sendF5()
+#ifwinactive, ahk_exe SqlNotebook.exe
+    ^Enter::sendF5()
+
 #if
 
 ;works
