@@ -95,6 +95,9 @@ Send, {Rbutton}
 ; It explains how to perform common automation tasks such as sending
 ; keystrokes and mouse clicks.  It also explains more about hotkeys.
 
+#PgUp::Send {Volume_Up 1}
+#PgDn::Send {Volume_Down 1}
+
 RControl & Enter::
 	IfWinActive ahk_exe powershell_ise.exe
 		SendInput {F5}
