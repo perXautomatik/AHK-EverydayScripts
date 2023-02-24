@@ -3,30 +3,6 @@ OnMessage(0x111, "WM_COMMAND")
 #Persistent ;hoping to use exit in end of each module to make sure no thread lingers after execution
 SetWorkingDir, %A_ScriptDir% ;To make a script unconditionally use its own folder as its working directory
 
-ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
-
-SendMode Input
-SetWorkingDir, %A_ScriptDir%
-OnMessage(0x111, "WM_COMMAND")
-ToolTip,%A_ScriptDir% ; why is %A_WorkingDir% not showing up?
-
-
-customEditorPath := "C:\Users\dator\AppData\Local\Programs\Microsoft VS Code\Code.exe"
-#include modular\openInVscode.ahk
-
-;doesn'tWork (it does open the folder of ahk script but doesn't open vscode)
-WM_COMMAND(wParam)
-{
-    if (wParam = 65401 ; ID_FILE_EDITSCRIPT
-         || wParam = 65304) ; ID_TRAY_EDITSCRIPT
-    {
-        Custom_Edit(%customEditorPath%) ;open In vscode
-        return true
-    }
-}
-OnMessage(0x111, "WM_COMMAND")
-
-
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 ;v-- method implementations ---------------------------------------------------------------
 
@@ -103,9 +79,9 @@ laodToolTip("reloaded")
 
 ;-------------------------unsure/irrelevant
  	  
-#Include modular\repeatSeQience.ahk
+;#Include modular\repeatSeQience.ahk
 #ifwinactive, ahk_exe i_view64.exe
- 	f::repeatSeQuence()									; This defines a hotkey, what it does is defined by the code below until the first return.
+; 	f::repeatSeQuence()									; This defines a hotkey, what it does is defined by the code below until the first return.
 #if
 
 #ifwinactive, ahk_exe datagrip64.exe
