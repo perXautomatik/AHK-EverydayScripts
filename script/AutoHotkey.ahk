@@ -98,7 +98,7 @@ Send, {Rbutton}
 RControl & Enter::
 	IfWinActive ahk_exe powershell_ise.exe
 		SendInput {F5}
-PrintScreen::
+RControl & PrintScreen::
 IfWinExist Skärmklippverktyget
 	WinActivate
   
@@ -122,16 +122,6 @@ else
 return
 
 
-!g::
-if (dostuff != off)
-{ 
-SetTimer, dostuff, 10
-return
-}
-else
-settimer, dostuff, off
-return
-}
 
 ;shift+win+E to kill windows
 #+e::
