@@ -1,0 +1,26 @@
+Todo
+
+* open selected file with notepad. (good for editing git files without ending)
+    (https://gist.github.com/c23bc75abd6001f477521a80dc3b4a83)
+* open explorer with selected text or clipboard
+
+* copy content of file to clipboard
+    (https://gist.github.com/c23bc75abd6001f477521a80dc3b4a83)
+
+* move selected files into new folder of name
+    (https://gist.github.com/c23bc75abd6001f477521a80dc3b4a83)
+
+* copy to toPrioritySlot
+    for example take lowest priority and push it to the top
+* copy to priorityslot 1-10
+    insert+f1-f10
+* paste from priorityslot 1-10
+    altGr+f1-f10
+* copy list to DestructableCopyList
+    altgr+insert
+* paste topEntry in DestructableCopyList
+    ctrl+w
+* copy to CopyWheel
+    ..
+* copy from copyWheel and increment
+    ..

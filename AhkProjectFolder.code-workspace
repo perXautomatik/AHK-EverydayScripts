@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\PortableApps\\4, windows enhance\\PortableApps\\AutoHotkeyPortable\\Data"
+		}
+	],
+	"settings": {
+  
+"vscode-ahk-plus.documentPath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey/AutoHotkey.chm",
+"vscode-ahk-plus.compilePath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey//Compiler/Ahk2Exe.exe",
+"vscode-ahk-plus.executePath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey/AutoHotkeyU64.exe",
+"ahk++.compilePath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey//Compiler/Ahk2Exe.exe",
+"ahk++.executePath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey/AutoHotkeyU64.exe",
+"ahk++.helpPath": "D:/PortableApps/4, windows enhance/PortableApps/AutoHotkeyPortable/App/AutoHotkey/AutoHotkey.chm",
+"AutoHotkey2.InterpreterPath": "D:\\PortableApps\\4, windows enhance\\PortableApps\\AutoHotkeyPortable\\App\\AutoHotkey\\AutoHotkey.exe"
+  },
+	"extensions": {
+		"recommendations": [
+			"qub.qub-xml-vscode"
+		]
+	}
+}

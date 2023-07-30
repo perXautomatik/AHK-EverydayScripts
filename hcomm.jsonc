@@ -1,0 +1,17 @@
+{
+    // Edit and save this file to re-parse your project.
+    "include": [
+        // TypeScript files.
+        "**/*.ts",
+        // Text files.
+        "**/*.txt",
+        // C++ files.
+        "**/*.{cpp|cxx}",
+        // Markdown files.
+        "**/*.{md|markdown}",
+        // Exclude every `node_modules` folder and the contents.
+        // DO NOT DELETE THIS, unless you know what you're doing, 
+        // otherwise traversing speed will suffer dramatically. 
+        "!**/node_modules/**"
+    ]
+}
