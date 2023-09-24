@@ -1,0 +1,39 @@
+[submodule "Fork/AppendToClipboard"]
+	path = Fork/AppendToClipboard
+	url = https://gist.github.com/perXautomatik/62718fb9a818a3bbe6628f35909f8266
+[submodule "Fork/CheckIfProgIsRunning"]
+	path = Fork/CheckIfProgIsRunning
+	url = https://gist.github.com/36a81216c1207100be63ee7c2672932b
+[submodule "Fork/ExplorerAtPath"]
+	path = Fork/ExplorerAtPath
+	url = https://gist.github.com/4f43492ad280c53f5492fcf90af6c680
+[submodule "Fork/GetRunningProcess"]
+	path = Fork/GetRunningProcess
+	url = https://gist.github.com/perXautomatik/da216c7be073639376a2df9163eabd26
+[submodule "script/Fork/GetRunningProcess"]
+	path = script/Fork/GetRunningProcess
+	url = https://github.com/perXautomatik/CSharp-Bor-s-Inl-mning1.git
+[submodule "Fork/Launch If not Currently running"]
+	path = Fork/Launch If not Currently running
+	url = https://gist.github.com/perXautomatik/b53ff0615497dc470178b389dc8978a3
+[submodule "Fork/Launch If not Currently running Continously"]
+	path = Fork/Launch If not Currently running Continously
+	url = https://gist.github.com/perXautomatik/36a81216c1207100be63ee7c2672932b
+[submodule "Fork/LaunchApplication"]
+	path = Fork/LaunchApplication
+	url = https://gist.github.com/perXautomatik/d89d66fc33e8ca8af5a89594abc54a8a
+[submodule "Fork/MACRO RECORDER"]
+	path = Fork/MACRO RECORDER
+	url = https://github.com/perXautomatik/AHK_SCRIPTS.git
+[submodule "script/Fork/NoahHotell"]
+	path = script/Fork/NoahHotell
+	url = https://github.com/perXautomatik/AHK-for-my-needs.git
+[submodule "Fork/Selected Item In Explorer"]
+	path = Fork/Selected Item In Explorer
+	url = https://gist.github.com/perXautomatik/6537e14a930ee339958936292f766ced
+[submodule "Fork/SelectedTextWithoutDisturbingClipboard"]
+	path = Fork/SelectedTextWithoutDisturbingClipboard
+	url = https://gist.github.com/b403c938c0ea3f78ec1d197c3dbf8368
+[submodule "Fork/WindowToforeground"]
+	path = Fork/WindowToforeground
+	url = https://gist.github.com/perXautomatik/2afabd6ac497820f9fa4b0e0f0e2fcfb
