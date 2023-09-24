@@ -46,9 +46,6 @@
 [submodule "fork/clipboardbuffer"]
 	path = fork/clipboardbuffer
 	url = https://gist.github.com/910aa24fc6068f7f70a5a167e62a640f
-[submodule "script/fork/AppendToClipboard"]
-	path = script/fork/AppendToClipboard
-	url = https://gist.github.com/perXautomatik/62718fb9a818a3bbe6628f35909f8266
 [submodule "script/fork/CheckIfProgIsRunning"]
 	path = script/fork/CheckIfProgIsRunning
 	url = https://gist.github.com/36a81216c1207100be63ee7c2672932b
