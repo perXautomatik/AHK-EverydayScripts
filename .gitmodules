@@ -1,0 +1,84 @@
+[submodule "Fork/AppendToClipboard"]
+	path = script/fork/AppendToClipboard
+	url = https://gist.github.com/perXautomatik/62718fb9a818a3bbe6628f35909f8266
+[submodule "Fork/CheckIfProgIsRunning"]
+	path = script/fork/CheckIfProgIsRunning
+	url = https://gist.github.com/36a81216c1207100be63ee7c2672932b
+[submodule "Fork/ExplorerAtPath"]
+	path = script/fork/ExplorerAtPath
+	url = https://gist.github.com/4f43492ad280c53f5492fcf90af6c680
+[submodule "Fork/GetRunningProcess"]
+	path = script/fork/GetRunningProcess
+	url = https://gist.github.com/perXautomatik/da216c7be073639376a2df9163eabd26
+[submodule "Fork/Launch If not Currently running Continously"]
+	path = script/fork/Launch If not Currently running Continously
+	url = https://gist.github.com/perXautomatik/36a81216c1207100be63ee7c2672932b
+[submodule "Fork/Launch If not Currently running"]
+	path = script/fork/Launch If not Currently running
+	url = https://gist.github.com/perXautomatik/b53ff0615497dc470178b389dc8978a3
+[submodule "Fork/LaunchApplication"]
+	path = script/fork/LaunchApplication
+	url = https://gist.github.com/perXautomatik/d89d66fc33e8ca8af5a89594abc54a8a
+[submodule "Fork/MACRO RECORDER"]
+	path = script/fork/MACRO RECORDER
+	url = https://github.com/perXautomatik/AHK_SCRIPTS.git
+[submodule "Fork/NoahHotell"]
+	path = script/fork/NoahHotell
+	url = https://github.com/perXautomatik/AHK-for-my-needs.git
+[submodule "Fork/Selected Item In Explorer"]
+	path = script/fork/Selected Item In Explorer
+	url = https://gist.github.com/perXautomatik/6537e14a930ee339958936292f766ced
+[submodule "Fork/SelectedTextWithoutDisturbingClipboard"]
+	path = script/fork/SelectedTextWithoutDisturbingClipboard
+	url = https://gist.github.com/b403c938c0ea3f78ec1d197c3dbf8368
+[submodule "Fork/WindowToforeground"]
+	path = script/fork/WindowToforeground
+	url = https://gist.github.com/perXautomatik/2afabd6ac497820f9fa4b0e0f0e2fcfb
+[submodule "Fork/autoklick"]
+	path = fork/autoklick
+	url = https://gist.github.com/847ca542e85ef1b450f42bd578fa9b96
+[submodule "ahk_config"]
+	path = ahk_config
+	url = https://github.com/perXautomatik/ahk_config
+[submodule "fork/ChangeSkypeStatus"]
+	path = fork/ChangeSkypeStatus
+	url = https://gist.github.com/bc40d01ca80c69488019b7f019368b26
+[submodule "fork/clipboardbuffer"]
+	path = fork/clipboardbuffer
+	url = https://gist.github.com/910aa24fc6068f7f70a5a167e62a640f
+[submodule "script/fork/AppendToClipboard"]
+	path = script/fork/AppendToClipboard
+	url = https://gist.github.com/perXautomatik/62718fb9a818a3bbe6628f35909f8266
+[submodule "script/fork/CheckIfProgIsRunning"]
+	path = script/fork/CheckIfProgIsRunning
+	url = https://gist.github.com/36a81216c1207100be63ee7c2672932b
+[submodule "script/fork/ExplorerAtPath"]
+	path = script/fork/ExplorerAtPath
+	url = https://gist.github.com/4f43492ad280c53f5492fcf90af6c680
+[submodule "script/fork/GetRunningProcess"]
+	path = script/fork/GetRunningProcess
+	url = https://gist.github.com/perXautomatik/da216c7be073639376a2df9163eabd26
+[submodule "script/fork/Launch If not Currently running Continously"]
+	path = script/fork/Launch If not Currently running Continously
+	url = https://gist.github.com/perXautomatik/36a81216c1207100be63ee7c2672932b
+[submodule "script/fork/Launch If not Currently running"]
+	path = script/fork/Launch If not Currently running
+	url = https://gist.github.com/perXautomatik/b53ff0615497dc470178b389dc8978a3
+[submodule "script/fork/LaunchApplication"]
+	path = script/fork/LaunchApplication
+	url = https://gist.github.com/perXautomatik/d89d66fc33e8ca8af5a89594abc54a8a
+[submodule "script/fork/MACRO RECORDER"]
+	path = script/fork/MACRO RECORDER
+	url = https://github.com/perXautomatik/AHK_SCRIPTS.git
+[submodule "script/fork/NoahHotell"]
+	path = script/fork/NoahHotell
+	url = ../AHK-for-my-needs.git
+[submodule "script/fork/Selected Item In Explorer"]
+	path = script/fork/Selected Item In Explorer
+	url = https://gist.github.com/perXautomatik/6537e14a930ee339958936292f766ced
+[submodule "script/fork/SelectedTextWithoutDisturbingClipboard"]
+	path = script/fork/SelectedTextWithoutDisturbingClipboard
+	url = https://gist.github.com/b403c938c0ea3f78ec1d197c3dbf8368
+[submodule "script/fork/WindowToforeground"]
+	path = script/fork/WindowToforeground
+	url = https://gist.github.com/perXautomatik/2afabd6ac497820f9fa4b0e0f0e2fcfb
