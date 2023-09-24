@@ -1,0 +1,3 @@
+!+f  open C:\Users\ala\scoop\apps\mpv\current\mpv.exe
+!f1  open C:\Users\ala\.local\bin\Nvy.exe
+!f2  open C:\Program Files\Lite XL\lite-xl.exe
