@@ -116,6 +116,8 @@ CapsLock & m::
     Run wt.exe
   else if Key = e
     Run explorer.exe
+  else if Key = x
+    Run %A_AppData%\Spotify\cache\hide_window.vbs
   else if Key = r
   {
     EnvGet, vUserProfile, USERPROFILE
