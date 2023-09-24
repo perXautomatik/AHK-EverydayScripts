@@ -1,0 +1,132 @@
+;GroupBox Example------------------------------------
+Gui, Add, GroupBox, r6 w500, Display
+Gui, Add, Text, xp+9 yp+20 Section, Display Adapter
+
+
+;Simple checkbox tweak------------------------------------
+;in Gui section of BethINI.ahk
+Gui, Add, Checkbox, vbBorderRegionsEnabled gbBorderRegionsEnabled Section, Remove Borders
+bBorderRegionsEnabled_TT := "If enabled, the borders at the edges of the map shall be removed.`n`n[General]`nbBorderRegionsEnabled"
+bBorderRegionsEnabled := Abs(getSettingValue("General", "bBorderRegionsEnabled", blank, "1") - 1)
+GuiControl, Main:, bBorderRegionsEnabled, %bBorderRegionsEnabled%
+;in Function section of BethINI.ahk
+bBorderRegionsEnabled:
+bBorderRegionsEnabled := Abs(getControlValue("bBorderRegionsEnabled") - 1)
+IniWrite, %bBorderRegionsEnabled%, %INIfolder%%gameNameINI%.ini, General, bBorderRegionsEnabled
+if bBorderRegionsEnabled = 1
+	tempText = You can no longer go beyond the borders of the map.
+else
+	tempText = You can now go beyond the borders of the map.
+sm(tempText)
+return
+;in refreshGUI.ahk
+bBorderRegionsEnabled := Abs(getSettingValue("General", "bBorderRegionsEnabled", blank, "1") - 1)
+GuiControl, Main:, bBorderRegionsEnabled, %bBorderRegionsEnabled%
+
+
+
+;Simple Edit tweak------------------------------------
+;in Gui section of BethINI.ahk
+Gui, Add, Text, , Max Autosaves
+Gui, Add, Edit, viAutoSaveCount giAutoSaveCount x+m yp-3 w24 Number,
+iAutoSaveCount_TT := "Sets the maximum number of autosaves to keep.`n`n[SaveGame]`niAutoSaveCount"
+iAutoSaveCount := getSettingValue("SaveGame", "iAutoSaveCount", blank, "3")
+GuiControl, Main:, iAutoSaveCount, %iAutoSaveCount%
+;in Function section of BethINI.ahk
+iAutoSaveCount:
+iAutoSaveCount := getControlValue("iAutoSaveCount")
+if iAutoSaveCount > 0
+	{
+		IniWrite, %iAutoSaveCount%, %INIfolder%%gameNameINI%.ini, SaveGame, iAutoSaveCount
+		sm("The maximum number of autosaves has been set to " . iAutoSaveCount . ".")
+	}
+else if iAutoSaveCount =
+	{
+		return
+	}
+else if iAutoSaveCount < 1
+	{
+		IniWrite, 1, %INIfolder%%gameNameINI%.ini, SaveGame, iAutoSaveCount
+		GuiControl, Main:, iAutoSaveCount, 1
+		sm("The maximum number of autosaves has been set to 1.")
+	}
+return
+;in refreshGUI.ahk
+iAutoSaveCount := getSettingValue("SaveGame", "iAutoSaveCount", blank, "3")
+GuiControl, Main:, iAutoSaveCount, %iAutoSaveCount%
+
+
+;Slider tweak------------------------------------
+;in Gui section of BethINI.ahk
+Gui, Add, Text, , Max Footstep Distance
+Gui, Add, Slider, vfMaxFootstepDistance gfMaxFootstepDistance x+m w80 h20 Range0-4000 TickInterval1000 ToolTip,
+Gui, Add, Edit, vfMaxFootstepDistanceReal gfMaxFootstepDistanceReal x+m yp-3 w40 Number,
+fMaxFootstepDistance_TT := "Sets the maximum distance that footsteps can be heard.`n`n[Audio]`nfMaxFootstepDistance"
+fMaxFootstepDistanceReal_TT := "Sets the maximum distance that footsteps can be heard.`n`n[Audio]`nfMaxFootstepDistance"
+fMaxFootstepDistance := Round(getSettingValue("Audio", "fMaxFootstepDistance", blank, "1100"),0)
+GuiControl, Main:, fMaxFootstepDistance, %fMaxFootstepDistance%
+GuiControl, Main:, fMaxFootstepDistanceReal, %fMaxFootstepDistance%
+;in Function section of BethINI.ahk
+fMaxFootstepDistance:
+fMaxFootstepDistance := getControlValue("fMaxFootstepDistance")
+GuiControl, Main:, fMaxFootstepDistanceReal, %fMaxFootstepDistance%
+return
+
+fMaxFootstepDistanceReal:
+fMaxFootstepDistanceReal := getControlValue("fMaxFootstepDistanceReal")
+GuiControl, Main:, fMaxFootstepDistance, %fMaxFootstepDistanceReal%
+IniWrite, %fMaxFootstepDistanceReal%, %INIfolder%%gameNameINI%.ini, Audio, fMaxFootstepDistance
+sm("The distance that footsteps can be heard has been set to " . fMaxFootstepDistanceReal . ".")
+return
+;in refreshGUI.ahk
+fMaxFootstepDistance := Round(getSettingValue("Audio", "fMaxFootstepDistance", blank, "1100"),0)
+GuiControl, Main:, fMaxFootstepDistance, %fMaxFootstepDistance%
+GuiControl, Main:, fMaxFootstepDistanceReal, %fMaxFootstepDistance%
+
+
+;ComboBox tweak------------------------------------
+;in Gui section of BethINI.ahk
+Gui, Add, Text, , Over-Encumbered Reminder
+Gui, Add, ComboBox, vfEncumberedReminderTimer gfEncumberedReminderTimer x+m yp-3 w60  Right,
+fEncumberedReminderTimer_TT := "Sets the time interval between subsequent ""You are carrying too much to be able to run"" messages in seconds.`n`n[General]`nfEncumberedReminderTimer"
+fEncumberedReminderTimer := sortNumberedList("30|60|300|3600", Round(getSettingValue("General", "fEncumberedReminderTimer", blank, "30"),0))
+GuiControl, Main:, fEncumberedReminderTimer, %fEncumberedReminderTimer%
+;in Function section of BethINI.ahk
+fEncumberedReminderTimer:
+fEncumberedReminderTimer := getControlValue("fEncumberedReminderTimer")
+IniWrite, %fEncumberedReminderTimer%, %INIfolder%%gameNameINI%.ini, General, fEncumberedReminderTimer
+sm("Over-Encumbered messages will repeat every " . fEncumberedReminderTimer . " seconds.")
+return
+;in refreshGUI.ahk
+fEncumberedReminderTimer := sortNumberedList("30|60|300|3600", Round(getSettingValue("General", "fEncumberedReminderTimer", blank, "30"),0))
+GuiControl, Main:, fEncumberedReminderTimer, |%fEncumberedReminderTimer%
+
+;DropDownList tweak------------------------------------
+;in Gui section of BethINI.ahk
+Gui, Add, Text, xp+9 yp+20 Section, Display Adapter
+Gui, Add, DropDownList, viAdapter gDisplayAdapter ys-3,
+iAdapter_TT := "Changes the display device that the game shall be displayed upon.`n`n[Display]`niAdapter"
+SysGet, adapterCount, MonitorCount
+SysGet, iAdapter, MonitorPrimary
+iAdapter := iAdapter - 1
+adapters := adapters(adapterCount, iAdapter)
+GuiControl, Main:, iAdapter, %adapters%
+;in Function section of BethINI.ahk
+DisplayAdapter:
+iAdapter := getControlValue("iAdapter")
+if (gameName = "Fallout 3" or gameName = "Fallout New Vegas")
+	IniWrite, %iAdapter%, %INIfolder%%gameNameINI%%Prefs%.ini, Display, iAdapter
+else if (gameName = "Skyrim" or gameName = "Oblivion")
+	IniWrite, %iAdapter%, %INIfolder%%gameNameINI%.ini, Display, iAdapter
+tempText = Display adapter changed to %iAdapter%
+sm(tempText)
+return
+;in refreshGUI.ahk
+SysGet, adapterCount, MonitorCount
+SysGet, iAdapter, MonitorPrimary
+iAdapter := iAdapter - 1
+adapters := adapters(adapterCount, iAdapter)
+GuiControl, Main:, iAdapter, |%adapters%
+
+
+
