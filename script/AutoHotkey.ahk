@@ -41,8 +41,6 @@ laodToolTip("reloaded")
 CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAutostart.exe","D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\","DittoAutostart.exe")
 
 
-#include Fork\WindowToforeground\bring-window-to-foreground.ahk
-!+p::toForeground("Ditto") ;not working
 
 ;Replaces the currently running instance of the script with a new one.
 ;https://www.autohotkey.com/docs/commands/Reload.htm
