@@ -15,8 +15,7 @@ SetWorkingDir, %A_ScriptDir%
 ;^-- auto-execute section "toprow"----------------------------------------------------------------
 ;v-- method implementations ---------------------------------------------------------------
 
-#include modular\getExtension.ahk
-#include modular\activeExplorerPath.ahk
+;#include modular\activeExplorerPath.ahk
 #include modular\afp.ahk
 
 ;MethodCalls;-------------------------------------------------------------------------------
@@ -48,14 +47,9 @@ CheckIfRunning("D:\PortableApps\3. Clipboard\PortableApps\DittoPortable\DittoAut
 #include modular\reloadScript.ahk
 !+r::reloadScript()
 
-;doesn't work
-#include modular\pShellAtCurrent.ahk
-#t::pShellAtCurrent()
 
 
-
-
-;shift+win+E to kill windows
+;shift+win+E to kill explorer
 #+e::
    Run, taskkill.exe /im explorer.exe /f
 Return
@@ -76,9 +70,6 @@ Send, {Rbutton}
 #include modular\pasteAsFile.ahk
 ^+v::pasteAsFile()
 
-
-
-
 ;works
 #include modular\volumePageUpdown.ahk
 
@@ -92,9 +83,18 @@ Send, {Rbutton}
 
 ;works
 #Include modular\SavingReloades.ahk
-#ifwinactive, AutoHotkey.ahk - Anteckningar
+#ifwinactive,* AutoHotkey.ahk - Notepad2
 	^s::SavingReloadsAhkWindow()
 #if
+
+#include modular\pushEnterUntil.ahk
+!+Enter::pushEnterUntil()
+
+;unsure/irrelevant
+
+;doesn't work
+#include modular\pShellAtCurrent.ahk
+#t::pShellAtCurrent()
 
 ;not working, better use custom settings in program
 #include modular\altShiftEnter.ahk
@@ -102,27 +102,17 @@ Send, {Rbutton}
     !F2::sendAltShiftEnter()
 #if
 
+;does not work, but atleast prompts error
+#include modular\appendClippboard.ahk
+!+w::appendClipboard()
 
 
 ;Work, could be reused as paste variable content
 #include modular\temp.ahk
 !+1::temp()
 
-
-;unsure/irrelevant
-
-;does not work, but atleast prompts error
-#include modular\appendClippboard.ahk
-!+w::appendClipboard()
-
-#include modular\pushEnterUntil.ahk
-!+Enter::pushEnterUntil()
-
-
 #include modular\altTab.ahk
 #include modular\refreshAhkWindow.ahk
-
-
 
 #IfWinActive, MTGA
 Space::
